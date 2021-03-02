@@ -6,7 +6,7 @@
             "id": "338bbfac-f9d8-4bfd-a8c1-355f2fcc877c",
             "actions": [
                 {
-                    "name": "Right",
+                    "name": "Move1",
                     "type": "Value",
                     "id": "bc6c2fbe-1f95-407b-a5cd-8aeedc7da3be",
                     "expectedControlType": "Vector2",
@@ -16,13 +16,13 @@
             ],
             "bindings": [
                 {
-                    "name": "2D Vector",
+                    "name": "WASD",
                     "id": "e49fb0a8-4c43-4645-8ba9-1730946fd9a3",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Right",
+                    "action": "Move1",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -33,7 +33,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Right",
+                    "action": "Move1",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -44,7 +44,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Right",
+                    "action": "Move1",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -55,7 +55,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Right",
+                    "action": "Move1",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -66,7 +66,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Right",
+                    "action": "Move1",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }

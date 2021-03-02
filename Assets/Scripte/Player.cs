@@ -7,9 +7,10 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     [SerializeField] float speed = 5f;
+    [SerializeField] float jumpForce = 5f;
 
-    GameObject body;
     Animator myAnimator;
+    Rigidbody2D _rigidbody2D;
 
 
     private Vector2 _move;
@@ -17,23 +18,18 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        body = transform.Find("Body").gameObject;
-        myAnimator = body.GetComponent<Animator>();
+        myAnimator = GetComponent<Animator>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
 
     }
 
     private void Update()
     {
         ChangeAnimation();
-        ChangeOrintation();
-
-        transform.position += new Vector3(_move.x * speed * Time.deltaTime, 0f);
-    }
-
-    private void ChangeOrintation()
-    {
-        if (_move.x < 0) transform.localScale = new Vector3(-1f, 1f);
-        if (_move.x > 0) transform.localScale = new Vector3( 1f, 1f);
+        FlipSprite();
+        if (_move.y > 0) _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, _move.y * jumpForce);
+        _rigidbody2D.velocity = new Vector3(_move.x * speed, _rigidbody2D.velocity.y);
+        
     }
 
     private void ChangeAnimation()
@@ -42,9 +38,18 @@ public class Player : MonoBehaviour
         else myAnimator.SetBool("isRunning", true);
     }
 
+    private void FlipSprite()
+    {
+        if (_move.x != 0)
+        {
+            transform.localScale = new Vector2(Mathf.Sign(_move.x), 1f);
+        }
+    }
+
     public void OnMove(InputAction.CallbackContext context)
     {
         _move = context.ReadValue<Vector2>();
+        Debug.Log(_move);
     }
     
 }

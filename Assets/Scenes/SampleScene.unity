@@ -3788,7 +3788,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 143956fc197cb734bb3f42eed283c088,
+  m_Actions: {fileID: -944628639613478452, guid: 56bc5467e5cf2ad4593f038ee2568288,
     type: 3}
   m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
@@ -3805,7 +3805,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1908245565}
-        m_MethodName: OnRightMove
+        m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3815,23 +3815,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 7570b02d-4ff6-47a9-b5cf-9c9871ad7b76
-    m_ActionName: Player/Right[/Keyboard/d,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1908245565}
-        m_MethodName: OnLeftMove
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 030efa37-fa17-442a-9e10-44c08600e60b
-    m_ActionName: Player/Left[/Keyboard/a,/Keyboard/leftArrow]
+    m_ActionId: bc6c2fbe-1f95-407b-a5cd-8aeedc7da3be
+    m_ActionName: Player/Right[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -3849,7 +3834,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6ac97a6e47291540b34fc53b56e13c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.5
+  speed: 5
+  jumpForce: 3
 --- !u!1001 &8402950024351538647
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3911,6 +3897,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8402950024092768747, guid: d7cd2838754638b48817f7939428ffcd,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8402950024092768748, guid: d7cd2838754638b48817f7939428ffcd,
         type: 3}
