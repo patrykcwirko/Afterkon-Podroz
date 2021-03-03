@@ -81,18 +81,7 @@ public class Player : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (!isWall)
-        {
             _move = context.ReadValue<float>();
-        }
-        else if(context.ReadValue<float>() < 0)
-        {
-            _move = context.ReadValue<float>();
-        }
-        else
-        {
-            _move = 0f;
-        }
     }
     
     public void OnJump(InputAction.CallbackContext context)
