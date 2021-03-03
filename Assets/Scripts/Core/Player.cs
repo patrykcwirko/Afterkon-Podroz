@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
     Rigidbody2D _rigidbody2D;
     GameController _gameController;
 
-    const float CALLBACK_COUNT = 3f;
+    const int CALLBACK_COUNT = 3;
     float _move;
     int _extraJump;
     bool isGrounded;
@@ -88,12 +88,12 @@ public class Player : MonoBehaviour
     {
         if (isGrounded) { _extraJump = 1; }
 
-        if ((_extraJump+1) / CALLBACK_COUNT <= 1)
+        if ((float)(_extraJump+1) / CALLBACK_COUNT <= 1)
         {
             Debug.Log("jump");
             Jump(context);
         }
-        else if (_extraJump < jumping.extraJump * CALLBACK_COUNT && _gameController.doubleJumpEvable)
+        else if (_extraJump < (float)jumping.extraJump * CALLBACK_COUNT && _gameController.doubleJumpEvable)
         {
             Debug.Log("Double jump");
             Jump(context);
