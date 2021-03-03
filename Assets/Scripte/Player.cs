@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     [SerializeField] float checkRadius;
     [SerializeField] LayerMask whatIsGround;
     [SerializeField] int extraJump;
+    [SerializeField] GameObject jumpEffect;
 
     Animator _Animator;
     Rigidbody2D _rigidbody2D;
@@ -69,15 +70,15 @@ public class Player : MonoBehaviour
 
         if ((_extraJump+1) / CALLBACK_COUNT <= 1)
         {
-            Debug.Log($"jump { _extraJump }");
             _rigidbody2D.velocity += new Vector2(_rigidbody2D.velocity.x, context.ReadValue<float>() * jumpForce);
             _extraJump++;
         }
         else if (_extraJump < extraJump * CALLBACK_COUNT)
         {
-            Debug.Log("Another jump}");
             _rigidbody2D.velocity += new Vector2(_rigidbody2D.velocity.x, context.ReadValue<float>() * jumpForce);
             _extraJump++;
+            var effects = Instantiate(jumpEffect, transform.position, Quaternion.identity);
+            Destroy(effects, 0.3f);
         }
     }
     
