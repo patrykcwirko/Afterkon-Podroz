@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [Serializable]
     public class Jumping 
@@ -16,7 +16,6 @@ public class Player : MonoBehaviour
         public Transform wallCheck;
         public float checkRadius;
         public LayerMask whatIsGround;
-        public int extraJump;
         public GameObject jumpEffect;
         public float effectLiveTime = 0.3f;
     }
@@ -30,17 +29,20 @@ public class Player : MonoBehaviour
     Rigidbody2D _rigidbody2D;
     GameController _gameController;
 
-    const int CALLBACK_COUNT = 3;
     float _move;
     int _extraJump;
+
     bool isGrounded;
     bool isWall;
+    bool isObject;
+    bool isStomp = false;
+    bool canDoubleJump;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        _extraJump = 1;
+        _extraJump = 0;
         _Animator = GetComponent<Animator>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _gameController = FindObjectOfType<GameController>();
@@ -51,18 +53,38 @@ public class Player : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(jumping.groundCheck.position, jumping.checkRadius, jumping.whatIsGround);
         isWall = Physics2D.OverlapCircle(jumping.wallCheck.position, jumping.checkRadius, jumping.whatIsGround);
+        isObject = Physics2D.OverlapCircle(jumping.groundCheck.position, jumping.checkRadius, LayerMask.GetMask("Object"));
+
+        if (isGrounded) canDoubleJump = true;
 
         ChangeAnimation();
         FlipSprite();
-        if (!isWall)
-        {
-            _rigidbody2D.velocity = new Vector3(_move * speed, _rigidbody2D.velocity.y);
-        }
-        else
-        {
-            _rigidbody2D.velocity = new Vector3(0f, _rigidbody2D.velocity.y);
-        }
+        Move();
 
+    }
+
+    private void Move()
+    {
+        if (!isWall) 
+        { 
+            _rigidbody2D.velocity = new Vector3(_move * speed, _rigidbody2D.velocity.y); 
+        }
+        else 
+        {
+            _rigidbody2D.velocity = new Vector3(0f, _rigidbody2D.velocity.y); 
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.layer == 9)
+        {
+            if (isStomp)
+            {
+                isStomp = false;
+                Destroy(collision.gameObject);
+            }
+        }
     }
 
     private void ChangeAnimation()
@@ -81,33 +103,46 @@ public class Player : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-            _move = context.ReadValue<float>();
+        _move = context.ReadValue<float>();
     }
     
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (isGrounded) { _extraJump = 1; }
 
-        if ((float)(_extraJump+1) / CALLBACK_COUNT <= 1)
+        if (context.phase == InputActionPhase.Started)
         {
-            Debug.Log("jump");
-            Jump(context);
+            if (isGrounded || isObject) { _extraJump = 1; }
+            if (isGrounded)
+            {
+                Debug.Log("jump");
+                Jump(context);
+            }
+            else if (canDoubleJump && _gameController.doubleJumpEvable)
+            {
+                Debug.Log("Double jump");
+                Jump(context);
+                SpawnEffect();
+                canDoubleJump = false;
+            }
         }
-        else if (_extraJump < (float)jumping.extraJump * CALLBACK_COUNT && _gameController.doubleJumpEvable)
-        {
-            Debug.Log("Double jump");
-            Jump(context);
-            var effects = Instantiate(jumping.jumpEffect, transform.position, Quaternion.identity);
-            Destroy(effects, jumping.effectLiveTime);
-        }
+    }
+
+    private void SpawnEffect()
+    {
+        var effects = Instantiate(jumping.jumpEffect, transform.position, Quaternion.identity);
+        Destroy(effects, jumping.effectLiveTime);
     }
 
     public void OnStomp(InputAction.CallbackContext context)
     {
-        if (!isGrounded && _gameController.stompEvable)
+        if (context.phase == InputActionPhase.Started)
         {
-            Debug.Log("Stomp");
-            _rigidbody2D.velocity += new Vector2(_rigidbody2D.velocity.x, -context.ReadValue<float>() * jumping.stompForce);
+            if (!isGrounded && _gameController.stompEvable)
+            {
+                Debug.Log("Stomp");
+                isStomp = true;
+                _rigidbody2D.velocity += new Vector2(_rigidbody2D.velocity.x, -context.ReadValue<float>() * jumping.stompForce);
+            }
         }
     }
 
