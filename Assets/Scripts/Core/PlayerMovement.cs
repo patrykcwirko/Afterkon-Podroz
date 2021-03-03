@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     {
         public float jumpForce = 5f;
         public float stompForce = 5f;
+        public float dashForce = 5f;
         public Transform groundCheck;
         public Transform wallCheck;
         public float checkRadius;
@@ -55,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
         isWall = Physics2D.OverlapCircle(jumping.wallCheck.position, jumping.checkRadius, jumping.whatIsGround);
         isObject = Physics2D.OverlapCircle(jumping.groundCheck.position, jumping.checkRadius, LayerMask.GetMask("Object"));
 
-        if (isGrounded) canDoubleJump = true;
+        if (isGrounded || isObject) canDoubleJump = true;
 
         ChangeAnimation();
         FlipSprite();
@@ -111,9 +112,9 @@ public class PlayerMovement : MonoBehaviour
 
         if (context.phase == InputActionPhase.Started)
         {
-            if (isGrounded || isObject) { _extraJump = 1; }
-            if (isGrounded)
+            if (isGrounded || isObject)
             {
+                _extraJump = 1;
                 Debug.Log("jump");
                 Jump(context);
             }
@@ -150,5 +151,13 @@ public class PlayerMovement : MonoBehaviour
     {
         _rigidbody2D.velocity += new Vector2(_rigidbody2D.velocity.x, context.ReadValue<float>() * jumping.jumpForce);
         _extraJump++;
+    }
+
+    public void OnDash(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            transform.position += new Vector3(_move * jumping.dashForce, 0f);
+        }
     }
 }

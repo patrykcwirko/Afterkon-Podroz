@@ -7,6 +7,7 @@ public class CameraFollow : MonoBehaviour
 {
     private Func<Vector3> GetCameraFollowPosiotionFunc;
 
+    private float cameraMoveSpeed = 10f;
     public void Setup(Func<Vector3> cameraFollowPosition)
     {
         this.GetCameraFollowPosiotionFunc = cameraFollowPosition;
@@ -25,7 +26,6 @@ public class CameraFollow : MonoBehaviour
 
         Vector3 cameraMoveDir = (cameraFollowPosition - transform.position).normalized;
         float distance = Vector3.Distance(cameraFollowPosition, transform.position);
-        float cameraMoveSpeed = 10f;
 
         if (distance > 0)
         {
