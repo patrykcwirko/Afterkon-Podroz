@@ -15,7 +15,8 @@ public class GameController : MonoBehaviour
 
 
     [SerializeField] public bool doubleJumpEvable;
-    [SerializeField] public bool stompEvable;
+    [SerializeField] public bool stompEnable;
+    [SerializeField] public bool dashEnable;
     [SerializeField] GameCamera gameCamera;
 
 

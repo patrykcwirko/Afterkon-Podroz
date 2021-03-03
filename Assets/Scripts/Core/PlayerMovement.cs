@@ -10,13 +10,24 @@ public class PlayerMovement : MonoBehaviour
     [Serializable]
     public class Jumping 
     {
+        [Header("Jump")]
         public float jumpForce = 5f;
+
+        [Header("Stomp")]
         public float stompForce = 5f;
+
+        [Header("Dash")]
         public float dashForce = 5f;
+        public float StartDashTimer = 5f;
+
+        [Header("Check contact")]
         public Transform groundCheck;
         public Transform wallCheck;
         public float checkRadius;
         public LayerMask whatIsGround;
+        public LayerMask whatIsObject;
+
+        [Header("Double jump efects")]
         public GameObject jumpEffect;
         public float effectLiveTime = 0.3f;
     }
@@ -30,20 +41,20 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D _rigidbody2D;
     GameController _gameController;
 
-    float _move;
-    int _extraJump;
+    float _moveDirection;
+    float _currentDashTimer;
 
     bool isGrounded;
     bool isWall;
     bool isObject;
     bool isStomp = false;
     bool canDoubleJump;
+    bool isDashing;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        _extraJump = 0;
         _Animator = GetComponent<Animator>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _gameController = FindObjectOfType<GameController>();
@@ -54,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(jumping.groundCheck.position, jumping.checkRadius, jumping.whatIsGround);
         isWall = Physics2D.OverlapCircle(jumping.wallCheck.position, jumping.checkRadius, jumping.whatIsGround);
-        isObject = Physics2D.OverlapCircle(jumping.groundCheck.position, jumping.checkRadius, LayerMask.GetMask("Object"));
+        isObject = Physics2D.OverlapCircle(jumping.groundCheck.position, jumping.checkRadius, jumping.whatIsObject);
 
         if (isGrounded || isObject) canDoubleJump = true;
 
@@ -62,13 +73,23 @@ public class PlayerMovement : MonoBehaviour
         FlipSprite();
         Move();
 
+        if (isDashing)
+        {
+            _rigidbody2D.velocity = transform.right * _moveDirection * jumping.dashForce;
+            _currentDashTimer -= Time.deltaTime;
+            if (_currentDashTimer <= 0)
+            {
+                isDashing = false;
+            }
+        }
+
     }
 
     private void Move()
     {
         if (!isWall) 
         { 
-            _rigidbody2D.velocity = new Vector3(_move * speed, _rigidbody2D.velocity.y); 
+            _rigidbody2D.velocity = new Vector3(_moveDirection * speed, _rigidbody2D.velocity.y); 
         }
         else 
         {
@@ -80,6 +101,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(collision.gameObject.layer == 9)
         {
+            Debug.Log("Destroy");
             if (isStomp)
             {
                 isStomp = false;
@@ -90,21 +112,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void ChangeAnimation()
     {
-        if (_move == 0) _Animator.SetBool("isRunning", false);
+        if (_moveDirection == 0) _Animator.SetBool("isRunning", false);
         else _Animator.SetBool("isRunning", true);
     }
 
     private void FlipSprite()
     {
-        if (_move != 0)
+        if (_moveDirection != 0)
         {
-            transform.localScale = new Vector2(Mathf.Sign(_move), 1f);
+            transform.localScale = new Vector2(Mathf.Sign(_moveDirection), 1f);
         }
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        _move = context.ReadValue<float>();
+        _moveDirection = context.ReadValue<float>();
     }
     
     public void OnJump(InputAction.CallbackContext context)
@@ -114,7 +136,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (isGrounded || isObject)
             {
-                _extraJump = 1;
                 Debug.Log("jump");
                 Jump(context);
             }
@@ -138,7 +159,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started)
         {
-            if (!isGrounded && _gameController.stompEvable)
+            if (!isGrounded && _gameController.stompEnable)
             {
                 Debug.Log("Stomp");
                 isStomp = true;
@@ -150,14 +171,19 @@ public class PlayerMovement : MonoBehaviour
     private void Jump(InputAction.CallbackContext context)
     {
         _rigidbody2D.velocity += new Vector2(_rigidbody2D.velocity.x, context.ReadValue<float>() * jumping.jumpForce);
-        _extraJump++;
     }
 
     public void OnDash(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Started)
         {
-            transform.position += new Vector3(_move * jumping.dashForce, 0f);
+            if (!isGrounded && _moveDirection != 0 && _gameController.dashEnable)
+            {
+                Debug.Log("dash");
+                isDashing = true;
+                _currentDashTimer = jumping.StartDashTimer;
+                _rigidbody2D.velocity = Vector2.zero;
+            }
         }
     }
 }
