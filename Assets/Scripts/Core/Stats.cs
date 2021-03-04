@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
-public class Stats
+[CreateAssetMenu(fileName = "newStat", menuName = "Stats")]
+public class Stats :ScriptableObject
 {
     public float health;
     public float attack;

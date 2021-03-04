@@ -1,4 +1,6 @@
-﻿namespace Player
+﻿using System.Diagnostics;
+
+namespace Player
 {
     struct States
     {

@@ -8,6 +8,8 @@ namespace Player
 
         [SerializeField] float speed = 5f;
         [SerializeField] JumpingConfig jumping;
+        public Transform groundCheck;
+        public Transform wallCheck;
 
 
         Animator _Animator;
@@ -45,9 +47,9 @@ namespace Player
 
         private void CheckPositionInWorld()
         {
-            states.isGrounded = Physics2D.OverlapCircle(jumping.groundCheck.position, jumping.checkRadius, jumping.whatIsGround);
-            states.isWall = Physics2D.OverlapCircle(jumping.wallCheck.position, jumping.checkRadius, jumping.whatIsGround);
-            states.isObject = Physics2D.OverlapCircle(jumping.groundCheck.position, jumping.checkRadius, jumping.whatIsObject);
+            states.isGrounded = Physics2D.OverlapCircle(groundCheck.position, jumping.checkRadius, jumping.whatIsGround);
+            states.isWall = Physics2D.OverlapCircle(wallCheck.position, jumping.checkRadius, jumping.whatIsGround);
+            states.isObject = Physics2D.OverlapCircle(groundCheck.position, jumping.checkRadius, jumping.whatIsObject);
             if (states.isGrounded || states.isObject) states.canDoubleJump = true;
         }
 

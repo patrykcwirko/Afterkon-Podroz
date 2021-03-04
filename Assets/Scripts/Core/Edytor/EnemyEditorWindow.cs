@@ -60,6 +60,22 @@ public class EnemyEditorWindow : EditorWindow
                     prop.Bind(serializedEnemy);
                     enemyInfoBox.Add(prop);
 
+                    if(enemyProperty.name == "monsterStats")
+                    {
+                        Stats stats = enemyProperty.objectReferenceValue as Stats;
+
+                        SerializedObject serializedStats = new SerializedObject(stats);
+                        SerializedProperty statsProperty = serializedStats.GetIterator();
+                        statsProperty.Next(true);
+                        while (statsProperty.NextVisible(false))
+                        {
+                            PropertyField propStats = new PropertyField(statsProperty);
+                            propStats.SetEnabled(statsProperty.name != "n_Script");
+                            propStats.Bind(serializedStats);
+                            enemyInfoBox.Add(propStats);
+                        }
+                    }
+
                     if (enemyProperty.name == "enemyImage")
                     {
                         prop.RegisterCallback<ChangeEvent<Object>>((changeEvent) => LoadEnemyImage(enemy.Sprite().texture));

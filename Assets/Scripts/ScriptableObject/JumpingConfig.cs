@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Player
 {
-    [Serializable]
-    public class JumpingConfig
+    [CreateAssetMenu(fileName = "newJumpConfig", menuName = "Player/Jumping Configuration")]
+    public class JumpingConfig: ScriptableObject
     {
         [Header("Jump")]
         public float jumpForce = 5f;
@@ -17,8 +17,6 @@ namespace Player
         public float StartDashTimer = 5f;
 
         [Header("Check contact")]
-        public Transform groundCheck;
-        public Transform wallCheck;
         public float checkRadius;
         public LayerMask whatIsGround;
         public LayerMask whatIsObject;
