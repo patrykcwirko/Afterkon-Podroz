@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IMonster
+namespace Enemy
 {
-    Monster monster  { get; }
+    public interface IMonster
+    {
+        MonsterData monster  { get; }
 
+    }
 }

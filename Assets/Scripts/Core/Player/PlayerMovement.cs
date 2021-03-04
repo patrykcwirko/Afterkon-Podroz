@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Animations;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Player
@@ -20,13 +17,7 @@ namespace Player
         float _moveDirection;
         float _currentDashTimer;
 
-        bool isGrounded;
-        bool isWall;
-        bool isObject;
-        bool isStomp = false;
-        bool canDoubleJump;
-        bool isDashing;
-
+        States states;
 
         // Start is called before the first frame update
         void Start()
@@ -42,7 +33,7 @@ namespace Player
             FlipSprite();
             Move();
             Dash();
-
+            states.isStomp = false;
         }
 
         private void Setup()
@@ -54,28 +45,28 @@ namespace Player
 
         private void CheckPositionInWorld()
         {
-            isGrounded = Physics2D.OverlapCircle(jumping.groundCheck.position, jumping.checkRadius, jumping.whatIsGround);
-            isWall = Physics2D.OverlapCircle(jumping.wallCheck.position, jumping.checkRadius, jumping.whatIsGround);
-            isObject = Physics2D.OverlapCircle(jumping.groundCheck.position, jumping.checkRadius, jumping.whatIsObject);
-            if (isGrounded || isObject) canDoubleJump = true;
+            states.isGrounded = Physics2D.OverlapCircle(jumping.groundCheck.position, jumping.checkRadius, jumping.whatIsGround);
+            states.isWall = Physics2D.OverlapCircle(jumping.wallCheck.position, jumping.checkRadius, jumping.whatIsGround);
+            states.isObject = Physics2D.OverlapCircle(jumping.groundCheck.position, jumping.checkRadius, jumping.whatIsObject);
+            if (states.isGrounded || states.isObject) states.canDoubleJump = true;
         }
 
         private void Dash()
         {
-            if (isDashing)
+            if (states.isDashing)
             {
                 _rigidbody2D.velocity = transform.right * _moveDirection * jumping.dashForce;
                 _currentDashTimer -= Time.deltaTime;
                 if (_currentDashTimer <= 0)
                 {
-                    isDashing = false;
+                    states.isDashing = false;
                 }
             }
         }
 
         private void Move()
         {
-            if (!isWall)
+            if (!states.isWall)
             {
                 _rigidbody2D.velocity = new Vector3(_moveDirection * speed, _rigidbody2D.velocity.y);
             }
@@ -90,9 +81,9 @@ namespace Player
             if (collision.gameObject.layer == 9)
             {
                 Debug.Log("Destroy");
-                if (isStomp)
+                if (states.isStomp)
                 {
-                    isStomp = false;
+                    states.isStomp = false;
                     Destroy(collision.gameObject);
                 }
             }
@@ -121,17 +112,17 @@ namespace Player
 
             if (context.phase == InputActionPhase.Started)
             {
-                if (isGrounded || isObject)
+                if (states.isGrounded || states.isObject)
                 {
                     Debug.Log("jump");
                     Jump(context);
                 }
-                else if (canDoubleJump && _gameController.doubleJumpEvable)
+                else if (states.canDoubleJump && _gameController.doubleJumpEvable)
                 {
                     Debug.Log("Double jump");
                     Jump(context);
                     SpawnEffect();
-                    canDoubleJump = false;
+                    states.canDoubleJump = false;
                 }
             }
         }
@@ -139,10 +130,10 @@ namespace Player
         {
             if (context.phase == InputActionPhase.Started)
             {
-                if (!isGrounded && _gameController.stompEnable)
+                if (!states.isGrounded && _gameController.stompEnable)
                 {
                     Debug.Log("Stomp");
-                    isStomp = true;
+                    states.isStomp = true;
                     _rigidbody2D.velocity += new Vector2(_rigidbody2D.velocity.x, -context.ReadValue<float>() * jumping.stompForce);
                 }
             }
@@ -151,10 +142,10 @@ namespace Player
         {
             if (context.phase == InputActionPhase.Started)
             {
-                if (!isGrounded && _moveDirection != 0 && _gameController.dashEnable)
+                if (!states.isGrounded && _moveDirection != 0 && _gameController.dashEnable)
                 {
                     Debug.Log("dash");
-                    isDashing = true;
+                    states.isDashing = true;
                     _currentDashTimer = jumping.StartDashTimer;
                     _rigidbody2D.velocity = Vector2.zero;
                 }

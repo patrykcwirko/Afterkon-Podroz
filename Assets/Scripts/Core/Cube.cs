@@ -1,12 +1,13 @@
-﻿using System.Collections;
+﻿using Enemy;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Cube : MonoBehaviour, IMonster
 {
-    public Monster monster;
+    public MonsterData monster;
 
-    Monster IMonster.monster => monster;
+    MonsterData IMonster.monster => monster;
 
 
     // Start is called before the first frame update
