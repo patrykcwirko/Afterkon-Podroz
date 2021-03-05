@@ -60,7 +60,7 @@ public class EnemyEditorWindow : EditorWindow
                     prop.Bind(serializedEnemy);
                     enemyInfoBox.Add(prop);
 
-                    if(enemyProperty.name == "monsterStats")
+                    if(enemyProperty.name == "monsterStats" && enemyProperty.objectReferenceValue != null)
                     {
                         Stats stats = enemyProperty.objectReferenceValue as Stats;
 

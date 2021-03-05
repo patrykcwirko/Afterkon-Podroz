@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Cube
   m_EditorClassIdentifier: 
   monsterName: Cube
-  monsterStats: {fileID: 11400000, guid: 35978050a72828e43ba95cbedb461075, type: 2}
+  monsterStats: {fileID: 11400000, guid: eb61f536afa417e438df977bde5287c0, type: 2}
   monsterSprite: {fileID: 21300000, guid: a0e35f6b808bb7447826cc6c69ffe448, type: 3}

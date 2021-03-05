@@ -12,18 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 519a515d34662af4d9b1f7f1ee2a0b97, type: 3}
   m_Name: Defoult
   m_EditorClassIdentifier: 
-  jumpForce: 5
-  stompForce: 5
+  jumpForce: 11.5
+  stompForce: 15
   dashForce: 5
-  StartDashTimer: 5
-  groundCheck: {fileID: 0}
-  wallCheck: {fileID: 0}
-  checkRadius: 0
+  StartDashTimer: 0.2
+  checkRadius: 0.2
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   whatIsObject:
     serializedVersion: 2
-    m_Bits: 0
-  jumpEffect: {fileID: 0}
+    m_Bits: 512
+  jumpEffect: {fileID: 9209275701745261090, guid: 41e701e1c4098024ba69d0772f9c9813,
+    type: 3}
   effectLiveTime: 0.3

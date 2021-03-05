@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Bat
   m_EditorClassIdentifier: 
   monsterName: Bat
-  monsterStats: {fileID: 11400000, guid: 35978050a72828e43ba95cbedb461075, type: 2}
+  monsterStats: {fileID: 0}
   monsterSprite: {fileID: 21300000, guid: 170577bce7cbda144b82578f81308d23, type: 3}
