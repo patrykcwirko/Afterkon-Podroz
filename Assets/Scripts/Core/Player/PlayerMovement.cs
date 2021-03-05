@@ -39,7 +39,6 @@ namespace Player
             FlipSprite();
             Move();
             Dash();
-            states.isStomp = false;
         }
 
         private void Setup()
@@ -60,7 +59,6 @@ namespace Player
         private void Dash()
         {
             if (!states.isDashing) return;
-            Debug.Log($"Test: {transform.right * _dashDirection * jumping.dashForce}");
             _rigidbody2D.velocity = transform.right * _dashDirection * jumping.dashForce;
             _currentDashTimer -= Time.deltaTime;
             if (_currentDashTimer <= Mathf.Epsilon)
@@ -84,7 +82,7 @@ namespace Player
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.layer == 9)
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Object"))
             {
                 Debug.Log("Destroy");
                 if (states.isStomp)
@@ -113,7 +111,6 @@ namespace Player
             else _moveDirection = context.ReadValue<float>();
             if (context.phase == InputActionPhase.Started)
             {
-                Debug.Log(_moveDirection);
                 if (_lastDirection == _moveDirection)
                 {
                     float timeSinceLastClick = Time.time - _lastClickTime;
@@ -157,22 +154,10 @@ namespace Player
                 _rigidbody2D.velocity += new Vector2(_rigidbody2D.velocity.x, -context.ReadValue<float>() * jumping.stompForce);
             }
         }
-        public void OnDash(InputAction.CallbackContext context)
-        {
-            if (context.phase != InputActionPhase.Started) return;
-            if (!states.isGrounded && _moveDirection != 0 && _gameController.dashEnable)
-            {
-                Debug.Log("dash");
-                states.isDashing = true;
-                _currentDashTimer = jumping.StartDashTimer;
-                _rigidbody2D.velocity = Vector2.zero;
-            }
-        }
         private void Jump(InputAction.CallbackContext context)
         {
             _rigidbody2D.velocity += new Vector2(_rigidbody2D.velocity.x, context.ReadValue<float>() * jumping.jumpForce);
         }
-
         private void SpawnEffect()
         {
             var effects = Instantiate(jumping.jumpEffect, transform.position, Quaternion.identity);
