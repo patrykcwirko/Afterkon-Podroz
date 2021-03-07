@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using UnityEngine.InputSystem;
+﻿using System.Collections;
+using System.ComponentModel;
+using UnityEngine;
 
 namespace Player
 {
@@ -11,34 +12,27 @@ namespace Player
         public Transform groundCheck;
         public Transform wallCheck;
 
-        private const float DOUBLE_CLICK_TIME = .2f;
-
         Animator _Animator;
         Rigidbody2D _rigidbody2D;
         GameController _gameController;
+        PlayerInput _playerInput;
 
-        float _moveDirection;
-        float _dashDirection;
-        float _lastDirection = 0;
         float _currentDashTimer;
-        float _lastClickTime;
 
-        StrStates states;
-
-        // Start is called before the first frame update
         void Start()
         {
             Setup();
-
         }
 
         private void Update()
         {
-            CheckPositionInWorld();
             ChangeAnimation();
             FlipSprite();
+            Stomp();
             Move();
             Dash();
+            Jump();
+            CheckPositionInWorld();
         }
 
         private void Setup()
@@ -46,35 +40,48 @@ namespace Player
             _Animator = GetComponent<Animator>();
             _rigidbody2D = GetComponent<Rigidbody2D>();
             _gameController = FindObjectOfType<GameController>();
+            _playerInput = GetComponent<PlayerInput>();
         }
 
         private void CheckPositionInWorld()
         {
-            states.isGrounded = Physics2D.OverlapCircle(groundCheck.position, jumping.checkRadius, jumping.whatIsGround);
-            states.isWall = Physics2D.OverlapCircle(wallCheck.position, jumping.checkRadius, jumping.whatIsGround);
-            states.isObject = Physics2D.OverlapCircle(groundCheck.position, jumping.checkRadius, jumping.whatIsObject);
-            if (states.isGrounded || states.isObject) states.canDoubleJump = true;
+            _playerInput.states.isGrounded = Physics2D.OverlapCircle(groundCheck.position, jumping.checkRadius, jumping.whatIsGround);
+            _playerInput.states.isWall = Physics2D.OverlapCircle(wallCheck.position, jumping.checkRadius, jumping.whatIsGround);
+            _playerInput.states.isObject = Physics2D.OverlapCircle(groundCheck.position, jumping.checkRadius, jumping.whatIsObject);
+            if (_playerInput.states.isGrounded || _playerInput.states.isObject)
+            {
+                _playerInput.states.canDoubleJump = true;
+                if ( _playerInput.states.isStomp)
+                {
+                    StartCoroutine(jumping.stompShake.Shake());
+                }
+            } 
+            if (_playerInput.states.isGrounded) _playerInput.states.isStomp = false;
         }
 
         private void Dash()
         {
-            if (!states.isDashing) return;
-            _rigidbody2D.velocity = transform.right * _dashDirection * jumping.dashForce;
+            if (!_playerInput.states.isDashing) return;
+            _currentDashTimer = jumping.StartDashTimer;
+            _rigidbody2D.velocity = Vector2.zero;
+            _rigidbody2D.velocity = transform.right * _playerInput.dashDirection * jumping.dashForce;
             _currentDashTimer -= Time.deltaTime;
             if (_currentDashTimer <= Mathf.Epsilon)
             {
-                _dashDirection = 0;
-                states.isDashing = false;
+                _playerInput.dashDirection = 0;
+                _playerInput.states.isDashing = false;
             }
         }
 
         private void Move()
-        {
-            if (!states.isWall)
+        {   
+            if(_playerInput.moveDirection == 0) return;
+            if (!_playerInput.states.isWall)
             {
-                _rigidbody2D.velocity = new Vector3(_moveDirection * speed, _rigidbody2D.velocity.y);
+                Debug.Log("Move");
+                _rigidbody2D.velocity = new Vector2(_playerInput.moveDirection * speed, _rigidbody2D.velocity.y);
             }
-            else
+            else if (!_playerInput.states.isGrounded)
             {
                 _rigidbody2D.velocity = new Vector3(0f, _rigidbody2D.velocity.y);
             }
@@ -85,9 +92,9 @@ namespace Player
             if (collision.gameObject.layer == LayerMask.NameToLayer("Object"))
             {
                 Debug.Log("Destroy");
-                if (states.isStomp)
+                if (_playerInput.states.isStomp)
                 {
-                    states.isStomp = false;
+                    _playerInput.states.isStomp = false;
                     Destroy(collision.gameObject);
                 }
             }
@@ -95,73 +102,57 @@ namespace Player
 
         private void ChangeAnimation()
         {
-            if (_moveDirection == 0) _Animator.SetBool("isRunning", false);
+            if (_playerInput.moveDirection == 0) _Animator.SetBool("isRunning", false);
             else _Animator.SetBool("isRunning", true);
         }
 
         private void FlipSprite()
         {
-            if (_moveDirection == 0) return;
-            transform.localScale = new Vector2(Mathf.Sign(_moveDirection), 1f);
+            if (_playerInput.moveDirection == 0) return;
+            transform.localScale = new Vector2(Mathf.Sign(_playerInput.moveDirection), 1f);
         }
 
-        public void OnMove(InputAction.CallbackContext context)
+        private void Jump()
         {
-            if (context.phase == InputActionPhase.Performed) return;
-            else _moveDirection = context.ReadValue<float>();
-            if (context.phase == InputActionPhase.Started)
+            if(!_playerInput.states.isJumping) return;
+            if (_playerInput.states.isGrounded || _playerInput.states.isObject)
             {
-                if (_lastDirection == _moveDirection)
-                {
-                    float timeSinceLastClick = Time.time - _lastClickTime;
-                    if (timeSinceLastClick <= DOUBLE_CLICK_TIME && _moveDirection != 0)
-                    {
-                        Debug.Log("dash");
-                        _dashDirection = _moveDirection;
-                        states.isDashing = true;
-                        _currentDashTimer = jumping.StartDashTimer;
-                        _rigidbody2D.velocity = Vector2.zero;
-                    }
-                }
-                _lastDirection = _moveDirection;
+                _rigidbody2D.velocity += new Vector2(_rigidbody2D.velocity.x, jumping.jumpForce);
             }
-            _lastClickTime = Time.time;
-        }
-        public void OnJump(InputAction.CallbackContext context)
-        {
-
-            if (context.phase != InputActionPhase.Started) return;
-            if (states.isGrounded || states.isObject)
-            {
-                Debug.Log("jump");
-                Jump(context);
-            }
-            else if (states.canDoubleJump && _gameController.doubleJumpEvable)
+            else if (_playerInput.states.canDoubleJump && _gameController.doubleJumpEvable)
             {
                 Debug.Log("Double jump");
-                Jump(context);
+                _rigidbody2D.velocity += new Vector2(_rigidbody2D.velocity.x, jumping.jumpForce);
                 SpawnEffect();
-                states.canDoubleJump = false;
+                _playerInput.states.canDoubleJump = false;
             }
+            _playerInput.states.isJumping = false;
         }
-        public void OnStomp(InputAction.CallbackContext context)
+
+        private void Stomp()
         {
-            if (context.phase != InputActionPhase.Started) return;
-            if (!states.isGrounded && _gameController.stompEnable)
+            if(_playerInput.states.isStomp)
             {
-                Debug.Log("Stomp");
-                states.isStomp = true;
-                _rigidbody2D.velocity += new Vector2(_rigidbody2D.velocity.x, -context.ReadValue<float>() * jumping.stompForce);
+                _rigidbody2D.velocity += new Vector2(0, -jumping.stompForce);
             }
-        }
-        private void Jump(InputAction.CallbackContext context)
-        {
-            _rigidbody2D.velocity += new Vector2(_rigidbody2D.velocity.x, context.ReadValue<float>() * jumping.jumpForce);
         }
         private void SpawnEffect()
         {
             var effects = Instantiate(jumping.jumpEffect, transform.position, Quaternion.identity);
             Destroy(effects, jumping.effectLiveTime);
+        }
+
+        public IEnumerator Knockback(float KnockbackDuration, float KnockbackPower, Transform obj){
+            float timer = 0;
+            Debug.Log("Hit");
+            while(KnockbackDuration > timer)
+            {
+                timer += Time.deltaTime;
+                Vector2 direction = (obj.transform.position - this.transform.position).normalized;
+                _rigidbody2D.AddForce(-direction * KnockbackPower);
+            }
+
+            yield return 0;
         }
     }
 

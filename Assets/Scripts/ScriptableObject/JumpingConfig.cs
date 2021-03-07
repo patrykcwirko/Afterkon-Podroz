@@ -11,6 +11,7 @@ namespace Player
 
         [Header("Stomp")]
         public float stompForce = 5f;
+        public CameraShake stompShake;
 
         [Header("Dash")]
         public float dashForce = 5f;

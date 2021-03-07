@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 11.5
   stompForce: 15
-  dashForce: 5
+  dashForce: 15
   StartDashTimer: 0.2
   checkRadius: 0.2
   whatIsGround:

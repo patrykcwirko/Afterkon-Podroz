@@ -71,3 +71,4 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 Assets/Assets Pack/CodeMonkey/
 Assets/Assets Pack/CodeMonkey.meta
+.vscode/settings.json

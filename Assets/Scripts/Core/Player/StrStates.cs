@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 
 namespace Player
 {
@@ -11,7 +12,7 @@ namespace Player
         public bool canDoubleJump;
         public bool isDashing;
         public bool isMoving;
-
+        public bool isJumping;
     }
 
 }

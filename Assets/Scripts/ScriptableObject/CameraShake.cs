@@ -5,11 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "newShake", menuName = "Utility/Camera Shake")]
 public class CameraShake : ScriptableObject
 {
+    [Range(0.1f, 0.9f)]
     [SerializeField] float duration;
+    [Range(0.1f, 0.9f)]
     [SerializeField] float magnitude;
-    public IEnumerable Shake()
+    public IEnumerator Shake()
     {
-        Vector3 originalPos = Camera.main.transform.localPosition;
+        Vector3 originalPos = FindObjectOfType<Camera>().transform.position;
 
         float elapsed = 0f;
 
@@ -18,7 +20,7 @@ public class CameraShake : ScriptableObject
             float x = Random.Range(-1f, 1f) * magnitude;
             float y = Random.Range(-1f, 1f) * magnitude;
 
-            Camera.main.transform.localPosition = new Vector3(x, y, originalPos.z);
+            Camera.main.transform.position += new Vector3(x, y, 0);
 
             elapsed += Time.deltaTime;
 
