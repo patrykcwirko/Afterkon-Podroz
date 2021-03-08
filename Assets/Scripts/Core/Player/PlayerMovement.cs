@@ -9,6 +9,7 @@ namespace Player
 
         [SerializeField] float speed = 5f;
         [SerializeField] JumpingConfig jumping;
+        public HeartsHealthVisual hearts;
         public Transform groundCheck;
         public Transform wallCheck;
 
@@ -171,7 +172,8 @@ namespace Player
             Destroy(effects, jumping.effectLiveTime);
         }
 
-        public IEnumerator Knockback(float KnockbackDuration, float KnockbackPower, Vector3 obj){
+        public IEnumerator Knockback(float KnockbackDuration, float KnockbackPower, Vector3 obj)
+        {
             float timer = 0;
             while(KnockbackDuration > timer)
             {

@@ -8,9 +8,11 @@ using CodeMonkey;
 public class HeartsHealthVisual : MonoBehaviour
 {
     [SerializeField] GameObject heartObject;
+    [SerializeField] AnimationClip heartFullAnimationClip;
 
     private List<HeartImage> heartImageList;
     private HeartsHealthSystem heartsHealthSystem;
+    private bool isHealing;
 
     private void Awake() {
         heartImageList = new List<HeartImage>();
@@ -18,13 +20,20 @@ public class HeartsHealthVisual : MonoBehaviour
 
     private void Start()
     {
-        HeartsHealthSystem newHeartsHealthSystem = new HeartsHealthSystem(4);
+        HeartsHealthSystem newHeartsHealthSystem = new HeartsHealthSystem(5);
         SetHeartsHealthSystem(newHeartsHealthSystem);
 
         heartsHealthSystem.Damage(1f);
         heartsHealthSystem.Damage(1f);
         heartsHealthSystem.Damage(1f);
-        heartsHealthSystem.Damage(1f);
+        heartsHealthSystem.Heal(1f);
+        heartsHealthSystem.Heal(1f);
+        heartsHealthSystem.Heal(1f);
+    }
+
+    public HeartsHealthSystem GetHeartSystem()
+    {
+        return heartsHealthSystem;
     }
 
     public void SetHeartsHealthSystem(HeartsHealthSystem heartsHealthSystem)
@@ -40,13 +49,23 @@ public class HeartsHealthVisual : MonoBehaviour
             heartAnchorePosition += new Vector2(44,0);
         }
         heartsHealthSystem.onDamaged += RefreshAllHearts;
-        heartsHealthSystem.onHealed += RefreshAllHearts;
+        heartsHealthSystem.onHealed += HeakthSystem_OnHealed;
         heartsHealthSystem.onDead += DeadMessage;
     }
+
+    private void Update() {
+        HealingAnimatedPeriodic();
+    }
+
 
     public void DeadMessage(object sender, EventArgs e)
     {
         Debug.Log("Dead");
+    }
+
+    public void HeakthSystem_OnHealed(object sender, EventArgs e)
+    {
+        isHealing = true;
     }
 
     public void RefreshAllHearts(object sender, EventArgs e)
@@ -59,14 +78,41 @@ public class HeartsHealthVisual : MonoBehaviour
         }
     }
 
+    private void HealingAnimatedPeriodic()
+    {
+        if(!isHealing) return;
+        bool fullyHealed = true;
+        for (int i = 0; i < heartImageList.Count; i++)
+        {
+            HeartImage heartImage = heartImageList[i];
+            HeartsHealthSystem.Heart heart = heartsHealthSystem.GetHeartList()[i];
+            if(heartImage.GetValue() != heart.GetValue())
+            {
+                heartImage.AddHeartVisualValue();
+                if(heartImage.GetValue() == HeartsHealthSystem.MAX_HEARTH_VALUE)
+                {
+                    heartImage.PlayHeartFullAnimation();
+                }
+                fullyHealed = false;
+                break;
+            }
+        }
+        if (fullyHealed)
+        {
+            isHealing = false;
+        }
+    }
+
     private HeartImage CreateHeartImage(Vector2 anchoredPosition)
     {
         GameObject heartGameObject = Instantiate(heartObject);
         heartGameObject.transform.parent = transform;
         heartGameObject.transform.localPosition = Vector3.zero;
+        heartGameObject.AddComponent<Animation>();
+        heartGameObject.GetComponent<Animation>().AddClip(heartFullAnimationClip, "HeartFull");
         heartGameObject.GetComponent<RectTransform>().anchoredPosition = anchoredPosition;
         heartGameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(10,10); 
-        HeartImage heartImage = new HeartImage(heartGameObject);
+        HeartImage heartImage = new HeartImage(heartGameObject, heartGameObject.GetComponent<Animation>());
         heartImageList.Add(heartImage);
 
         return heartImage;
@@ -74,16 +120,33 @@ public class HeartsHealthVisual : MonoBehaviour
 
     public class HeartImage
     { 
-        private GameObject herthImage;
+        private GameObject heartImage;
+        private Animation animation;
 
-        public HeartImage(GameObject hearth)
+        public HeartImage(GameObject hearth, Animation animation)
         {
-            this.herthImage = hearth;
+            this.heartImage = hearth;
+            this.animation = animation;
         }
 
         public void SetHeartValue(float value)
         {
-            herthImage.transform.Find("Fill").GetComponent<Image>().fillAmount = value * 0.8f;
+            heartImage.transform.Find("Fill").GetComponent<Image>().fillAmount = value * 0.8f;
+        }
+
+        internal void AddHeartVisualValue()
+        {
+            heartImage.transform.Find("Fill").GetComponent<Image>().fillAmount += 0.01f;
+        }
+
+        internal float GetValue()
+        {
+            return heartImage.transform.Find("Fill").GetComponent<Image>().fillAmount;
+        }
+
+        public void PlayHeartFullAnimation()
+        {
+            animation.Play("HeartFull", PlayMode.StopAll);
         }
     }
 }

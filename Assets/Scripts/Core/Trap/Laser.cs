@@ -38,10 +38,12 @@ namespace Core.Trap
             }
         }
 
-        private void OnCollisionEnter2D(Collision2D other) {
+        private void OnCollisionEnter2D(Collision2D other) 
+        {
             if (other.gameObject.tag == "Player")
             {
-                StartCoroutine( other.gameObject.GetComponent<Player.PlayerMovement>().Knockback(knockbackDuration, knockbackPower, other.contacts[0].point) );
+                StartCoroutine( other.gameObject.GetComponent<Player.PlayerMovement>().Knockback(knockbackDuration, knockbackPower, transform.position) );
+                other.gameObject.GetComponent<Player.PlayerMovement>().hearts.GetHeartSystem().Damage(10f);
             }
         }
 
@@ -59,7 +61,6 @@ namespace Core.Trap
         public void ResizeTrap()
         {
             laser.localScale = new Vector2(laser.localScale.x, size);
-            _laseCollider.offset = new Vector2(0, size / 2);
             _laseCollider.size = new Vector2(1, size);
         }
     }

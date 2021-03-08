@@ -10,7 +10,9 @@ public class HeartsHealthSystem
     public event EventHandler onDead;
 
     public const float MAX_HEARTH_VALUE = 1f;
+    public const float HP_PER_HEART = 20f; 
     private List<Heart> heartList;
+
 
     public HeartsHealthSystem(int heartAmount)
     {
@@ -29,17 +31,18 @@ public class HeartsHealthSystem
 
     public void Damage(float damageAmount)
     {
+        float damage = damageAmount / HP_PER_HEART;
         for (int i = heartList.Count -1; i >= 0; i--)
         {
             Heart heart = heartList[i];
-            if(damageAmount > heart.GetValue())
+            if(damage > heart.GetValue())
             {
-                damageAmount -= heart.GetValue();
+                damage -= heart.GetValue();
                 heart.TakeDamage(heart.GetValue());
             } 
             else
             {
-                heart.TakeDamage(damageAmount);
+                heart.TakeDamage(damage);
                 break;
             }
         }
@@ -51,18 +54,19 @@ public class HeartsHealthSystem
 
     public void Heal(float healAmount)
     {
+        float heal = healAmount / HP_PER_HEART;
         for (int i = 0; i < heartList.Count; i++)
         {
             Heart heart = heartList[i];
             float missingHP = MAX_HEARTH_VALUE - heart.GetValue();
-            if(healAmount > missingHP)
+            if(heal > missingHP)
             {
-                healAmount -= missingHP;
+                heal -= missingHP;
                 heart.Heal(missingHP);
             }
             else
             {
-                heart.Heal(healAmount);
+                heart.Heal(heal);
                 break;
             }
         }
