@@ -9,8 +9,6 @@ namespace Player
 
         [SerializeField] float speed = 5f;
         [SerializeField] JumpingConfig jumping;
-        public float distanceBetweenImages;
-        public float dashCoolDown;
         public Transform groundCheck;
         public Transform wallCheck;
 
@@ -83,13 +81,11 @@ namespace Player
         {
             if(_playerInput.states.isDashPushed)
             {
-                //TODO: naprawić CoolDown Dash'a
-                if(Time.deltaTime >= (_lastDash + dashCoolDown))
+                if(Time.time >= (_lastDash + jumping.dashCoolDown))
                 {
-                    Debug.Log("TEST Dash");
                     _isDashing = true;
                     _dashTimeLeft = jumping.dashTime;
-                    _lastDash = Time.deltaTime;
+                    _lastDash = Time.time;
 
                     PlayerAfterImagePool.Instance.GetFromPool();
                     _lastImageXpos = transform.position.x;
@@ -107,7 +103,7 @@ namespace Player
                     _rigidbody2D.velocity = transform.right * _playerInput.dashDirection * jumping.dashForce;
                     _dashTimeLeft -= Time.deltaTime;
 
-                    if(Mathf.Abs(transform.position.x - _lastImageXpos) > distanceBetweenImages)
+                    if(Mathf.Abs(transform.position.x - _lastImageXpos) > jumping.distanceBetweenImages)
                     {
                         PlayerAfterImagePool.Instance.GetFromPool();
                         _lastImageXpos = transform.position.x;
@@ -175,13 +171,12 @@ namespace Player
             Destroy(effects, jumping.effectLiveTime);
         }
 
-        public IEnumerator Knockback(float KnockbackDuration, float KnockbackPower, Transform obj){
+        public IEnumerator Knockback(float KnockbackDuration, float KnockbackPower, Vector3 obj){
             float timer = 0;
-            Debug.Log("Hit");
             while(KnockbackDuration > timer)
             {
                 timer += Time.deltaTime;
-                Vector2 direction = (obj.transform.position - this.transform.position).normalized;
+                Vector2 direction = (obj - this.transform.position).normalized;
                 _rigidbody2D.AddForce(-direction * KnockbackPower);
             }
 

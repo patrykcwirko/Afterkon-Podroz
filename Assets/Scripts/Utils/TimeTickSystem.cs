@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimeTickSystem : MonoBehaviour
+public static class TimeTickSystem
 {
     public class onTickEventArgs : EventArgs
     {
@@ -11,24 +11,49 @@ public class TimeTickSystem : MonoBehaviour
     }
 
     public static event EventHandler<onTickEventArgs> onTick;
+    public static event EventHandler<onTickEventArgs> onTick_5;
     
     private const float TICK_TIME_MAX = .2f;
-    private int tick;
-    private float tickTimer;
 
-    private void Awake()
+    private static GameObject timeTickSystemGameObject;
+    private static int tick;
+
+    public static void Create()
     {
-        tick = 0;
+        if(timeTickSystemGameObject == null)
+        {
+            timeTickSystemGameObject = new GameObject("TimeTickSystem");
+            timeTickSystemGameObject.AddComponent<TimeTickSystemObject>();
+        }
     }
 
-    private void Update()
+    public static int GetTick()
     {
-        tickTimer += Time.deltaTime;
-        if (tickTimer >= TICK_TIME_MAX)
+        return tick;
+    }
+
+    private class TimeTickSystemObject : MonoBehaviour
+    {
+        private float tickTimer;
+
+        private void Awake()
         {
-            tickTimer -= TICK_TIME_MAX;
-            tick++;
-            if (onTick != null) onTick(this, new onTickEventArgs { tick = tick });
+            tick = 0;
+        }
+
+        private void Update()
+        {
+            tickTimer += Time.deltaTime;
+            if (tickTimer >= TICK_TIME_MAX)
+            {
+                tickTimer -= TICK_TIME_MAX;
+                tick++;
+                if (onTick != null) onTick(this, new onTickEventArgs { tick = tick });
+                if(tick % 5 == 0)
+                {
+                    if (onTick_5 != null) onTick_5(this, new onTickEventArgs { tick = tick });
+                }
+            }
         }
     }
 }

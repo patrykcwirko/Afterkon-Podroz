@@ -16,6 +16,8 @@ namespace Player
         [Header("Dash")]
         public float dashForce = 5f;
         public float dashTime = 5f;
+        public float distanceBetweenImages = 0.1f;
+        public float dashCoolDown;
 
         [Header("Check contact")]
         public float checkRadius;
