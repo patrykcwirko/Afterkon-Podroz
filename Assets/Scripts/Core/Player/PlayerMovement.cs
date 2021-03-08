@@ -9,6 +9,8 @@ namespace Player
 
         [SerializeField] float speed = 5f;
         [SerializeField] JumpingConfig jumping;
+        public float distanceBetweenImages;
+        public float dashCoolDown;
         public Transform groundCheck;
         public Transform wallCheck;
 
@@ -17,7 +19,12 @@ namespace Player
         GameController _gameController;
         PlayerInput _playerInput;
 
-        float _currentDashTimer;
+        private float _currentDashTimer = 0;
+        private float _dashTimeLeft;
+        private float _lastImageXpos;
+        private float _lastDash = -100f;
+        private bool _isDashing;
+
 
         void Start()
         {
@@ -29,7 +36,7 @@ namespace Player
             ChangeAnimation();
             FlipSprite();
             Stomp();
-            Move();
+            Movement();
             Dash();
             Jump();
             CheckPositionInWorld();
@@ -43,6 +50,19 @@ namespace Player
             _playerInput = GetComponent<PlayerInput>();
         }
 
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Object"))
+            {
+                Debug.Log("Destroy");
+                if (_playerInput.states.isStompPushed)
+                {
+                    _playerInput.states.isStompPushed = false;
+                    Destroy(collision.gameObject);
+                }
+            }
+        }
+
         private void CheckPositionInWorld()
         {
             _playerInput.states.isGrounded = Physics2D.OverlapCircle(groundCheck.position, jumping.checkRadius, jumping.whatIsGround);
@@ -51,52 +71,66 @@ namespace Player
             if (_playerInput.states.isGrounded || _playerInput.states.isObject)
             {
                 _playerInput.states.canDoubleJump = true;
-                if ( _playerInput.states.isStomp)
+                if ( _playerInput.states.isStompPushed)
                 {
                     StartCoroutine(jumping.stompShake.Shake());
                 }
             } 
-            if (_playerInput.states.isGrounded) _playerInput.states.isStomp = false;
+            if (_playerInput.states.isGrounded) _playerInput.states.isStompPushed = false;
         }
 
         private void Dash()
         {
-            if (!_playerInput.states.isDashing) return;
-            _currentDashTimer = jumping.StartDashTimer;
-            _rigidbody2D.velocity = Vector2.zero;
-            _rigidbody2D.velocity = transform.right * _playerInput.dashDirection * jumping.dashForce;
-            _currentDashTimer -= Time.deltaTime;
-            if (_currentDashTimer <= Mathf.Epsilon)
+            if(_playerInput.states.isDashPushed)
             {
-                _playerInput.dashDirection = 0;
-                _playerInput.states.isDashing = false;
+                //TODO: naprawić CoolDown Dash'a
+                if(Time.deltaTime >= (_lastDash + dashCoolDown))
+                {
+                    Debug.Log("TEST Dash");
+                    _isDashing = true;
+                    _dashTimeLeft = jumping.dashTime;
+                    _lastDash = Time.deltaTime;
+
+                    PlayerAfterImagePool.Instance.GetFromPool();
+                    _lastImageXpos = transform.position.x;
+                }
+            }
+            CheckDash();
+        }
+
+        private void CheckDash()
+        {
+            if (_isDashing)
+            {
+                if(_dashTimeLeft > 0)
+                {
+                    _rigidbody2D.velocity = transform.right * _playerInput.dashDirection * jumping.dashForce;
+                    _dashTimeLeft -= Time.deltaTime;
+
+                    if(Mathf.Abs(transform.position.x - _lastImageXpos) > distanceBetweenImages)
+                    {
+                        PlayerAfterImagePool.Instance.GetFromPool();
+                        _lastImageXpos = transform.position.x;
+                    }
+                }
+
+                if (_dashTimeLeft <= 0 || _playerInput.states.isWall)
+                {
+                    _isDashing = false;
+                }
             }
         }
 
-        private void Move()
+        private void Movement()
         {   
-            if(_playerInput.moveDirection == 0) return;
+            //if(_playerInput.moveDirection == 0) return;
             if (!_playerInput.states.isWall)
             {
-                Debug.Log("Move");
                 _rigidbody2D.velocity = new Vector2(_playerInput.moveDirection * speed, _rigidbody2D.velocity.y);
             }
             else if (!_playerInput.states.isGrounded)
             {
                 _rigidbody2D.velocity = new Vector3(0f, _rigidbody2D.velocity.y);
-            }
-        }
-
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Object"))
-            {
-                Debug.Log("Destroy");
-                if (_playerInput.states.isStomp)
-                {
-                    _playerInput.states.isStomp = false;
-                    Destroy(collision.gameObject);
-                }
             }
         }
 
@@ -114,7 +148,7 @@ namespace Player
 
         private void Jump()
         {
-            if(!_playerInput.states.isJumping) return;
+            if(!_playerInput.states.isJumpPushed) return;
             if (_playerInput.states.isGrounded || _playerInput.states.isObject)
             {
                 _rigidbody2D.velocity += new Vector2(_rigidbody2D.velocity.x, jumping.jumpForce);
@@ -126,16 +160,15 @@ namespace Player
                 SpawnEffect();
                 _playerInput.states.canDoubleJump = false;
             }
-            _playerInput.states.isJumping = false;
+            _playerInput.states.isJumpPushed = false;
         }
 
         private void Stomp()
         {
-            if(_playerInput.states.isStomp)
-            {
-                _rigidbody2D.velocity += new Vector2(0, -jumping.stompForce);
-            }
+            if(!_playerInput.states.isStompPushed) return;
+            _rigidbody2D.velocity += new Vector2(0, -jumping.stompForce);
         }
+
         private void SpawnEffect()
         {
             var effects = Instantiate(jumping.jumpEffect, transform.position, Quaternion.identity);

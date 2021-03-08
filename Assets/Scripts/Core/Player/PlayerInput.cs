@@ -23,6 +23,8 @@ namespace Player
         {
             if (context.phase == InputActionPhase.Performed) return;
             else moveDirection = context.ReadValue<float>();
+            if (context.phase == InputActionPhase.Canceled) states.isDashPushed = false;
+            // if (context.phase == InputActionPhase.Canceled) states.isDashing = false;
             if (context.phase == InputActionPhase.Started)
             {
                 if (moveDirection != 0 ) _lastDirection = moveDirection;
@@ -32,7 +34,7 @@ namespace Player
                 {
                     Debug.Log("dash");
                     dashDirection = moveDirection;
-                    states.isDashing = true;                                           
+                    states.isDashPushed = true;                                           
                 }  
             }
             _lastClickTime = Time.time;
@@ -40,18 +42,26 @@ namespace Player
 
         public void OnJump(InputAction.CallbackContext context)
         {
-            if (context.phase != InputActionPhase.Started) return;
-            Debug.Log("jump Input");
-            states.isJumping = true;
+            if (context.phase == InputActionPhase.Performed) return;
+            if (context.phase == InputActionPhase.Canceled) states.isJumpPushed = false;
+            if (context.phase == InputActionPhase.Started)
+            {
+                Debug.Log("jump Input");
+                states.isJumpPushed = true;
+            }
         }
 
         public void OnStomp(InputAction.CallbackContext context)
         {
-            if (context.phase != InputActionPhase.Started) return;
-            if (!states.isGrounded && _gameController.stompEnable)
+            if (context.phase == InputActionPhase.Performed) return;
+            if (context.phase == InputActionPhase.Canceled) states.isStompPushed = false;
+            if (context.phase == InputActionPhase.Started) 
             {
-                Debug.Log("Stomp");
-                states.isStomp = true;      
+                if (!states.isGrounded && _gameController.stompEnable)
+                {
+                    Debug.Log("Stomp");
+                    states.isStompPushed = true;      
+                }
             }
         }
     }

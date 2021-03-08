@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66ef80c5715d239498e6ba74ef26cc3d, type: 3}
   m_Name: LittleShake
   m_EditorClassIdentifier: 
-  duration: 0
-  magnitude: 0
+  duration: 0.1
+  magnitude: 0.162
