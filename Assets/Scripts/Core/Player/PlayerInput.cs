@@ -70,7 +70,6 @@ namespace Player
         {
             if (context.phase == InputActionPhase.Started)
             {
-                Debug.Log("Pressed");
                 healPush = true;
             } 
         }

@@ -8,11 +8,12 @@ namespace Enemy
     {
         public MonsterData monster;
         public IBrain brain;
+        public float knockbackDuration = 2;
+        public float knockbackPower = 20;
 
 
         private bool movingRight = true;
         private Transform raycastPoint;
-
 
         void Start()
         {
@@ -21,8 +22,26 @@ namespace Enemy
 
         void Update()
         {
-            transform.Translate(Vector2.right * monster.Stats().speed * Time.deltaTime);
-            transform.eulerAngles = brain.Think(raycastPoint);
+            var dir = brain.Think(raycastPoint);
+            if(dir.x > 0)
+            {
+                transform.localScale = Vector3.one;
+            }
+            else
+            {
+                transform.localScale = new Vector3(-1,1,1);
+            }
+            transform.Translate(dir * monster.Stats().speed * Time.deltaTime);
+
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.tag == "Player")
+            {
+                StartCoroutine(other.gameObject.GetComponent<Player.PlayerMovement>().Knockback(knockbackDuration, knockbackPower, transform.position));
+                other.gameObject.GetComponent<Player.PlayerCombat>().hearts.GetHeartSystem().Damage(10f);
+            }
         }
 
     }
