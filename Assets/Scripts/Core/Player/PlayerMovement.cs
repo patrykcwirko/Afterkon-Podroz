@@ -9,7 +9,6 @@ namespace Player
 
         [SerializeField] float speed = 5f;
         [SerializeField] JumpingConfig jumping;
-        public HeartsHealthVisual hearts;
         public Transform groundCheck;
         public Transform wallCheck;
 

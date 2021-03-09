@@ -43,7 +43,7 @@ namespace Core.Trap
             if (other.gameObject.tag == "Player")
             {
                 StartCoroutine( other.gameObject.GetComponent<Player.PlayerMovement>().Knockback(knockbackDuration, knockbackPower, transform.position) );
-                other.gameObject.GetComponent<Player.PlayerMovement>().hearts.GetHeartSystem().Damage(10f);
+                other.gameObject.GetComponent<Player.PlayerCombat>().hearts.GetHeartSystem().Damage(10f);
             }
         }
 

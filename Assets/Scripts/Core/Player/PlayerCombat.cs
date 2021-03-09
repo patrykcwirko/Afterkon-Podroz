@@ -6,16 +6,25 @@ namespace Player
 {
     public class PlayerCombat : MonoBehaviour
     {
-        // Start is called before the first frame update
+        public HeartsHealthVisual hearts;
+        public PotionSystemVisual potionSystem;
+
+        private PlayerInput _playerInput;
+        
         void Start()
         {
-            
+            _playerInput = GetComponent<PlayerInput>();
         }
 
-        // Update is called once per frame
         void Update()
         {
-            
+            if (_playerInput.healPush)
+            {
+                Debug.Log("Heal");
+                potionSystem.UsePotion();
+                hearts.GetHeartSystem().Heal(20);
+                _playerInput.healPush = false;
+            }
         }
     }
 }

@@ -23,12 +23,8 @@ public class HeartsHealthVisual : MonoBehaviour
         HeartsHealthSystem newHeartsHealthSystem = new HeartsHealthSystem(5);
         SetHeartsHealthSystem(newHeartsHealthSystem);
 
-        heartsHealthSystem.Damage(1f);
-        heartsHealthSystem.Damage(1f);
-        heartsHealthSystem.Damage(1f);
-        heartsHealthSystem.Heal(1f);
-        heartsHealthSystem.Heal(1f);
-        heartsHealthSystem.Heal(1f);
+        heartsHealthSystem.Damage(40f);
+        heartsHealthSystem.Heal(40f);
     }
 
     public HeartsHealthSystem GetHeartSystem()

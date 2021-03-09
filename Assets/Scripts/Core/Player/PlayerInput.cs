@@ -8,6 +8,7 @@ namespace Player
         public float moveDirection;
         public float dashDirection;
         public StrStates states;
+        public bool healPush;
 
         private const float DOUBLE_CLICK_TIME = .2f;
         private float _lastDirection = 0;
@@ -63,6 +64,15 @@ namespace Player
                     states.isStompPushed = true;      
                 }
             }
+        }
+
+        public void OnHeal(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+            {
+                Debug.Log("Pressed");
+                healPush = true;
+            } 
         }
     }
 
