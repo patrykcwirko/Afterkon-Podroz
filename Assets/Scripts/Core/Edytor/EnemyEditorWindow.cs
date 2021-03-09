@@ -89,16 +89,16 @@ public class EnemyEditorWindow : EditorWindow
         enemyList.Refresh();
     }
 
-    private void FindAllEnemy(out MonsterData[] enemies)
+    private void FindAllEnemy(out Enemy.MonsterData[] enemies)
     {
         var guids = AssetDatabase.FindAssets("t:MonsterData");
 
-        enemies = new MonsterData[guids.Length];
+        enemies = new Enemy.MonsterData[guids.Length];
 
         for (int i = 0; i < guids.Length; i++)
         {
             var path = AssetDatabase.GUIDToAssetPath(guids[i]);
-            enemies[i] = AssetDatabase.LoadAssetAtPath<MonsterData>(path);
+            enemies[i] = AssetDatabase.LoadAssetAtPath<Enemy.MonsterData>(path);
         }
     }
 

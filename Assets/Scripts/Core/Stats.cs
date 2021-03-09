@@ -9,4 +9,5 @@ public class Stats :ScriptableObject
     public float health;
     public float attack;
     public float defence;
+    public float speed;
 }

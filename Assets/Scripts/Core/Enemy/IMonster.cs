@@ -6,7 +6,7 @@ namespace Enemy
 {
     public interface IMonster
     {
-        MonsterData monster  { get; }
+        //MonsterData monster  { get; set; }
 
     }
 }
