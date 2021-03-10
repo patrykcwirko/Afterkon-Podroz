@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class IBrain : ScriptableObject
+public abstract class Brain : ScriptableObject
 {
     public virtual void Initialize() {}
     public abstract Vector3 Think(Transform raycastPoint);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Enemy/Brains/PatrolBrain")]
-public class Patrol : IBrain
+public class Patrol : Brain
 {
     [Range(-1, 1)]
     public float angle = -0.8f;

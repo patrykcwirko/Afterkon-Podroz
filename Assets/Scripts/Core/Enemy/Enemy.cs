@@ -7,7 +7,7 @@ namespace Enemy
     public class Enemy : MonoBehaviour, IMonster
     {
         public MonsterData monster;
-        public IBrain brain;
+        public Brain brain;
         public float knockbackDuration = 2;
         public float knockbackPower = 20;
 
