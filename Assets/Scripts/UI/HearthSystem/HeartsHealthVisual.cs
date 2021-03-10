@@ -87,7 +87,7 @@ public class HeartsHealthVisual : MonoBehaviour
         {
             HeartImage heartImage = heartImageList[i];
             HeartsHealthSystem.Heart heart = heartsHealthSystem.GetHeartList()[i];
-            if(heartImage.GetValue() != heart.GetValue())
+            if(Math.Round(heartImage.GetValue(), 3) != heart.GetValue())
             {
                 heartImage.AddHeartVisualValue();
                 if(heartImage.GetValue() == HeartsHealthSystem.MAX_HEARTH_VALUE)
