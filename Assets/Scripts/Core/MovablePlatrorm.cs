@@ -13,7 +13,6 @@ public class MovablePlatrorm : MonoBehaviour
     private Transform _raycastPointRight;
     private Vector3 _directionMove;
 
-    // Start is called before the first frame update
     void Start()
     {
         _directionMove = Vector3.right;
@@ -21,7 +20,6 @@ public class MovablePlatrorm : MonoBehaviour
         _raycastPointRight = transform.Find("WallCheckRight");
     }
 
-    // Update is called once per frame
     void Update()
     {
         transform.Translate(_directionMove * speed);

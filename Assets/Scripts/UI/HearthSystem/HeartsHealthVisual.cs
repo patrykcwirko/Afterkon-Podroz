@@ -90,7 +90,7 @@ public class HeartsHealthVisual : MonoBehaviour
             if(Math.Round(heartImage.GetValue(), 3) != heart.GetValue())
             {
                 heartImage.AddHeartVisualValue();
-                if(heartImage.GetValue() == HeartsHealthSystem.MAX_HEARTH_VALUE)
+                if(Math.Round(heartImage.GetValue(), 2) == HeartsHealthSystem.MAX_HEARTH_VALUE)
                 {
                     heartImage.PlayHeartFullAnimation();
                 }
