@@ -10,7 +10,7 @@ public class PotionSystemVisual : MonoBehaviour
 
     List<GameObject> potionList;
 
-    private const float OFFSET_POTION = 30f;
+    private const float OFFSET_POTION = 70f;
 
     private void Awake() {
         potionList = new List<GameObject>();
@@ -24,7 +24,7 @@ public class PotionSystemVisual : MonoBehaviour
         potionGameObject.transform.localPosition = Vector3.zero;
 
         potionGameObject.GetComponent<RectTransform>().anchoredPosition = anchoredPosition;
-        potionGameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(40,40);
+        potionGameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(80,80);
 
         potionList.Add(potionGameObject);
         return potionGameObject;

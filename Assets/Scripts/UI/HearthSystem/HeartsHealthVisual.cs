@@ -12,6 +12,8 @@ public class HeartsHealthVisual : MonoBehaviour
 
     public event EventHandler onDeath;
 
+    private const float OFFSET = 110;
+
     private List<HeartImage> heartImageList;
     private HeartsHealthSystem heartsHealthSystem;
     private bool isHealing;
@@ -44,7 +46,7 @@ public class HeartsHealthVisual : MonoBehaviour
         {
             HeartsHealthSystem.Heart heart = heartList[i];
             CreateHeartImage(heartAnchorePosition).SetHeartValue(heart.GetValue());
-            heartAnchorePosition += new Vector2(44,0);
+            heartAnchorePosition += new Vector2(OFFSET,0);
         }
         heartsHealthSystem.onDamaged += RefreshAllHearts;
         heartsHealthSystem.onHealed += HeakthSystem_OnHealed;
@@ -110,7 +112,7 @@ public class HeartsHealthVisual : MonoBehaviour
         heartGameObject.AddComponent<Animation>();
         heartGameObject.GetComponent<Animation>().AddClip(heartFullAnimationClip, "HeartFull");
         heartGameObject.GetComponent<RectTransform>().anchoredPosition = anchoredPosition;
-        heartGameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(10,10); 
+        heartGameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(1,1); 
         HeartImage heartImage = new HeartImage(heartGameObject, heartGameObject.GetComponent<Animation>());
         heartImageList.Add(heartImage);
 
