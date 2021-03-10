@@ -51,9 +51,8 @@ namespace Player
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Object"))
+            if (collision.gameObject.tag == "Destructible")
             {
-                Debug.Log("Destroy");
                 if (_playerInput.states.isStompPushed)
                 {
                     _playerInput.states.isStompPushed = false;
@@ -152,7 +151,6 @@ namespace Player
             }
             else if (_playerInput.states.canDoubleJump && _gameController.doubleJumpEvable)
             {
-                Debug.Log("Double jump");
                 _rigidbody2D.velocity += new Vector2(_rigidbody2D.velocity.x, jumping.jumpForce);
                 SpawnEffect();
                 _playerInput.states.canDoubleJump = false;

@@ -10,6 +10,8 @@ public class HeartsHealthVisual : MonoBehaviour
     [SerializeField] GameObject heartObject;
     [SerializeField] AnimationClip heartFullAnimationClip;
 
+    public event EventHandler onDeath;
+
     private List<HeartImage> heartImageList;
     private HeartsHealthSystem heartsHealthSystem;
     private bool isHealing;
@@ -57,6 +59,7 @@ public class HeartsHealthVisual : MonoBehaviour
     public void DeadMessage(object sender, EventArgs e)
     {
         Debug.Log("Dead");
+        onDeath?.Invoke(this, EventArgs.Empty);
     }
 
     public void HeakthSystem_OnHealed(object sender, EventArgs e)

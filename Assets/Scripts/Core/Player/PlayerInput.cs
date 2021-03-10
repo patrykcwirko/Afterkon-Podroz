@@ -33,7 +33,6 @@ namespace Player
                 float timeSinceLastClick = Time.time - _lastClickTime;
                 if (timeSinceLastClick <= DOUBLE_CLICK_TIME && moveDirection != 0)
                 {
-                    Debug.Log("dash");
                     dashDirection = moveDirection;
                     states.isDashPushed = true;                                           
                 }  
@@ -47,7 +46,6 @@ namespace Player
             if (context.phase == InputActionPhase.Canceled) states.isJumpPushed = false;
             if (context.phase == InputActionPhase.Started)
             {
-                Debug.Log("jump Input");
                 states.isJumpPushed = true;
             }
         }
@@ -60,7 +58,6 @@ namespace Player
             {
                 if (!states.isGrounded && _gameController.stompEnable)
                 {
-                    Debug.Log("Stomp");
                     states.isStompPushed = true;      
                 }
             }

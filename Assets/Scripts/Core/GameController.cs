@@ -18,17 +18,30 @@ public class GameController : MonoBehaviour
     [SerializeField] public bool stompEnable;
     [SerializeField] public bool dashEnable;
     [SerializeField] GameCamera gameCamera;
+    [SerializeField] Transform currentCheckPoint;
+
+    private HeartsHealthVisual healthVisual;
+    private PotionSystemVisual potionSystem;
 
 
-    // Start is called before the first frame update
     void Start()
     {
+        healthVisual = FindObjectOfType<HeartsHealthVisual>();
+        potionSystem = FindObjectOfType<PotionSystemVisual>();
         gameCamera.cameraFollow.Setup(() => gameCamera.playerTrasform.position + gameCamera.offset);
+        healthVisual.onDeath += Game_OnDeath;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Game_OnDeath(object sender, EventArgs e)
     {
-        
+        var player = FindObjectOfType<Player.PlayerMovement>().gameObject;
+        player.gameObject.transform.SetPositionAndRotation(currentCheckPoint.position, currentCheckPoint.rotation);
+        healthVisual.GetHeartSystem().Heal(100);
+        potionSystem.ClearPotionList();
+    }
+
+    public void SetCheckPoint(Transform checkPoint)
+    {
+        currentCheckPoint = checkPoint;
     }
 }

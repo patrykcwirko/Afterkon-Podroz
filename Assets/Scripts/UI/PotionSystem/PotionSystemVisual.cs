@@ -43,4 +43,13 @@ public class PotionSystemVisual : MonoBehaviour
         CreatePotionImage(new Vector2(offset,0));
     }
 
+    public void ClearPotionList()
+    {
+        foreach (var item in potionList)
+        {
+            Destroy(item);
+        }
+        potionList.Clear();
+    }
+
 }
