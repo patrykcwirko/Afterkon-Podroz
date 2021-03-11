@@ -26,17 +26,22 @@ public class Patrol : Brain
         Debug.DrawRay(raycastPoint.position, raycastPoint.TransformDirection(new Vector2(1, angle)) * DISTANCE_RAYCAST, Color.red);
         if (groundInfo.collider == null || wallInfo.collider)
         {
-            if (movingRight)
-            {
-                dirMove = Vector3.left;
-                movingRight = false;
-            }
-            else
-            {
-                dirMove = Vector3.right;
-                movingRight = true;
-            }
+            dirMove = ChangeDirection();
         }
         return dirMove;
+    }
+
+    public Vector3 ChangeDirection()
+    {
+        if (movingRight)
+        {
+            movingRight = false;
+            return Vector3.left;
+        }
+        else
+        {
+            movingRight = true;
+            return Vector3.right;
+        }
     }
 }

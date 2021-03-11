@@ -14,6 +14,7 @@ namespace Enemy
 
         private bool movingRight = true;
         private Transform raycastPoint;
+        private Vector3 _dir;
 
         void Start()
         {
@@ -22,8 +23,8 @@ namespace Enemy
 
         void Update()
         {
-            var dir = brain.Think(raycastPoint);
-            if(dir.x > 0)
+            _dir = brain.Think(raycastPoint);
+            if(_dir.x > 0)
             {
                 transform.localScale = Vector3.one;
             }
@@ -31,7 +32,7 @@ namespace Enemy
             {
                 transform.localScale = new Vector3(-1,1,1);
             }
-            transform.Translate(dir * monster.Stats().speed * Time.deltaTime);
+            transform.Translate(_dir * monster.Stats().speed * Time.deltaTime);
 
         }
 
