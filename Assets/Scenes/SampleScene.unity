@@ -7695,8 +7695,8 @@ GameObject:
   - component: {fileID: 1170840378}
   - component: {fileID: 1170840377}
   - component: {fileID: 1170840376}
-  - component: {fileID: 1170840375}
   - component: {fileID: 1170840374}
+  - component: {fileID: 1170840375}
   m_Layer: 9
   m_Name: MoveTrap
   m_TagString: Untagged
@@ -7728,8 +7728,9 @@ Animation:
   m_GameObject: {fileID: 1170840373}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations: []
+  m_Animation: {fileID: 7400000, guid: df7557ef68422b04689347df00c9a5fc, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: df7557ef68422b04689347df00c9a5fc, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
