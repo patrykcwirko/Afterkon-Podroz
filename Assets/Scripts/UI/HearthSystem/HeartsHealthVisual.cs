@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+<<<<<<< HEAD
+=======
+//using CodeMonkey;
+>>>>>>> master
 
 public class HeartsHealthVisual : MonoBehaviour
 {
