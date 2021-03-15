@@ -128,6 +128,7 @@ namespace Player
             {
                 _rigidbody2D.velocity = new Vector3(0f, _rigidbody2D.velocity.y);
             }
+            Debug.DrawRay(transform.position, transform.TransformDirection(_rigidbody2D.velocity) * 0.25f, Color.green);
         }
 
         private void ChangeAnimation()

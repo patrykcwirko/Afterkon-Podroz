@@ -25,7 +25,6 @@ namespace Player
             if (context.phase == InputActionPhase.Performed) return;
             else moveDirection = context.ReadValue<float>();
             if (context.phase == InputActionPhase.Canceled) states.isDashPushed = false;
-            // if (context.phase == InputActionPhase.Canceled) states.isDashing = false;
             if (context.phase == InputActionPhase.Started)
             {
                 if (moveDirection != 0 ) _lastDirection = moveDirection;
@@ -36,8 +35,8 @@ namespace Player
                     dashDirection = moveDirection;
                     states.isDashPushed = true;                                           
                 }  
+                _lastClickTime = Time.time;
             }
-            _lastClickTime = Time.time;
         }
 
         public void OnJump(InputAction.CallbackContext context)

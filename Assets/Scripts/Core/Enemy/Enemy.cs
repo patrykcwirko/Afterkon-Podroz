@@ -24,15 +24,6 @@ namespace Enemy
         void Update()
         {
             _dir = brain.Think(raycastPoint);
-            if(_dir.x > 0)
-            {
-                transform.localScale = Vector3.one;
-            }
-            else
-            {
-                transform.localScale = new Vector3(-1,1,1);
-            }
-            transform.Translate(_dir * monster.Stats().speed * Time.deltaTime);
 
         }
 

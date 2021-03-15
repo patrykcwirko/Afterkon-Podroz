@@ -23,7 +23,6 @@ public class GameController : MonoBehaviour
     private HeartsHealthVisual healthVisual;
     private PotionSystemVisual potionSystem;
 
-
     void Start()
     {
         healthVisual = FindObjectOfType<HeartsHealthVisual>();
