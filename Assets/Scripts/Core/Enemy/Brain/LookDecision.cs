@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Enemy/Decision/Look")]
+[CreateAssetMenu(menuName = "Enemy/AI/Decision/Look")]
 public class LookDecision : Decision
 {
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Enemy/State")]
+[CreateAssetMenu(menuName = "Enemy/AI/State")]
 public class State : ScriptableObject
 {
     public Action[] actions;

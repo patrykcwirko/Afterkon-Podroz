@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "Enemy/Action/Patrol")]
+[CreateAssetMenu(menuName = "Enemy/AI/Action/Patrol")]
 public class PatrolAction : Action
 {
     [Range(-1.5f, -0.8f)]

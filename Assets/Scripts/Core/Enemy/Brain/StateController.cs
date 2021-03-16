@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Enemy;
 using UnityEngine;
@@ -11,6 +12,12 @@ public class StateController : MonoBehaviour
     public State remainState;
 
     [HideInInspector] public Transform chaseTarget;
+    [HideInInspector] public int stateTimeElapsed;
+
+    private void Start() {
+        TimeTickSystem.onTick += TimeOnTick;
+    }
+
 
     private void Update() {
         currentState.UpdateState(this);
@@ -31,6 +38,21 @@ public class StateController : MonoBehaviour
         {
             currentState = nextState;
         }
+    }
+
+    private void TimeOnTick(object sender, TimeTickSystem.onTickEventArgs e)
+    {
+        stateTimeElapsed++;
+    }
+
+    public bool CheckIfCountDownElapsed(int duration)
+    {
+        return (stateTimeElapsed >= duration);
+    }
+
+    public void ResetTimer()
+    {
+        stateTimeElapsed = 0;
     }
     //? Pobranie komponettów od przeciwnnika
 }

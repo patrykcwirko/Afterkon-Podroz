@@ -11,6 +11,7 @@ namespace Enemy
         [SerializeField] Stats monsterStats;
         [SerializeField] Sprite monsterSprite;
         public float lookSphereCastRadius = 0.2f;
+        public int attackRateInTick = 2;
 
 
         public string MonsterName() { return monsterName; }
