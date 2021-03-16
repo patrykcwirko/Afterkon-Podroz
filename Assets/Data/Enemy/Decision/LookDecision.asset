@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3d47dc39a2ebdd418eaed1721aa8fc9, type: 3}
   m_Name: LookDecision
   m_EditorClassIdentifier: 
-  lookDistance: 0.2
-  angleLook: 0
+  lookDistance: 2
+  angleLook: 360
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 1024

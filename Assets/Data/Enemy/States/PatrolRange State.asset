@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 736561fd2a46b044b97196713302e3cc, type: 3}
-  m_Name: PatrolChaser State
+  m_Name: PatrolRange State
   m_EditorClassIdentifier: 
   actions:
-  - {fileID: 11400000, guid: 35d78e58f60281641961a9fd8cd6e6d3, type: 2}
+  - {fileID: 0}
   transitions:
   - decision: {fileID: 11400000, guid: 739252a79b020124a96e4d24d63f0c58, type: 2}
     trueState: {fileID: 11400000, guid: 66a3e6bea00cbb043b2859f1542db8bb, type: 2}

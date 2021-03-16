@@ -14,6 +14,12 @@ namespace Player
         public Transform wallCheck;
 
         Animator _Animator;
+
+        internal IEnumerator Knockback(object knockbackDuration, object knockbackPower, Vector3 position)
+        {
+            throw new NotImplementedException();
+        }
+
         Rigidbody2D _rigidbody2D;
         GameController _gameController;
         PlayerInput _playerInput;
@@ -119,7 +125,6 @@ namespace Player
 
         private void Movement()
         {   
-            //if(_playerInput.moveDirection == 0) return;
             if (!_playerInput.states.isWall)
             {
                 _rigidbody2D.velocity = new Vector2(_playerInput.moveDirection * speed, _rigidbody2D.velocity.y);

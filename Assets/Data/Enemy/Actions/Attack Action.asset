@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f6a87a356bae9a4c84dc61fe096e967, type: 3}
   m_Name: Attack Action
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 7403382949168263903, guid: ea13c44731f41434885bbde7baa08c30,
+    type: 3}
