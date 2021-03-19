@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: PatrolRange State
   m_EditorClassIdentifier: 
   actions:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: c41f273209ce8ff4a9392f70b6c01574, type: 2}
   transitions:
   - decision: {fileID: 11400000, guid: 739252a79b020124a96e4d24d63f0c58, type: 2}
-    trueState: {fileID: 11400000, guid: 66a3e6bea00cbb043b2859f1542db8bb, type: 2}
+    trueState: {fileID: 11400000, guid: 7795f5e924709604cb34822835fe0455, type: 2}
     falseState: {fileID: 11400000, guid: 4b0d745e7007cac48bb53d2b69523125, type: 2}
   sceneGizmoColor: {r: 0, g: 1, b: 0, a: 1}

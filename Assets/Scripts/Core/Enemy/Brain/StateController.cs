@@ -13,8 +13,10 @@ public class StateController : MonoBehaviour
 
     [HideInInspector] public Transform chaseTarget;
     [HideInInspector] public int stateTimeElapsed;
+    [HideInInspector] public Vector3 dirMove;
 
     private void Start() {
+        dirMove = Vector3.right;
         TimeTickSystem.onTick += TimeOnTick;
     }
 
