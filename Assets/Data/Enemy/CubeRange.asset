@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e77a3204d0db8564a9a62b7500169378, type: 3}
   m_Name: CubeRange
   m_EditorClassIdentifier: 
-  monsterName: 
-  monsterStats: {fileID: 0}
-  monsterSprite: {fileID: 0}
+  monsterName: Range
+  monsterSprite: {fileID: 21300000, guid: 170577bce7cbda144b82578f81308d23, type: 3}
+  monsterStats: {fileID: 11400000, guid: eb61f536afa417e438df977bde5287c0, type: 2}
+  damageOnContact: 10
   lookSphereCastRadius: 0.2
-  attackRateInTick: 2
+  attackRateInTick: 5

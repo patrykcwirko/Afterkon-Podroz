@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Enemy;
 
 [CreateAssetMenu(menuName = "Enemy/AI/State")]
 public class State : ScriptableObject
@@ -9,13 +10,13 @@ public class State : ScriptableObject
     public Transition[] transitions;
     public Color sceneGizmoColor = Color.green;
 
-    public void UpdateState(StateController controller)
+    public void UpdateState(Enemy.EnemyController controller)
     {
         DoAction(controller);
         CheckTransition(controller);
     }
 
-    private void DoAction(StateController controller)
+    private void DoAction(Enemy.EnemyController controller)
     {
         for (int i = 0; i < actions.Length; i++)
         {
@@ -23,7 +24,7 @@ public class State : ScriptableObject
         }
     }
 
-    private void CheckTransition(StateController controller)
+    private void CheckTransition(Enemy.EnemyController controller)
     {
         for (int i = 0; i < transitions.Length; i++)
         {

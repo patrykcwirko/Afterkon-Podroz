@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4687208742911723317}
   - component: {fileID: 4687208742911723306}
   - component: {fileID: 4687208742911723304}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 170577bce7cbda144b82578f81308d23, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.0588235, g: 0.0612619, b: 0.93333334, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -150,6 +150,7 @@ MonoBehaviour:
   remainState: {fileID: 11400000, guid: 4b0d745e7007cac48bb53d2b69523125, type: 2}
   chaseTarget: {fileID: 0}
   stateTimeElapsed: 0
+  dirMove: {x: 0, y: 0, z: 0}
 --- !u!1 &4687208743459802316
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,7 +160,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4687208743459802319}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RayCastPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

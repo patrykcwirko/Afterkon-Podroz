@@ -8,8 +8,9 @@ namespace Enemy
     public class MonsterData : ScriptableObject
     {
         [SerializeField] string monsterName;
-        [SerializeField] Stats monsterStats;
         [SerializeField] Sprite monsterSprite;
+        [SerializeField] Stats monsterStats;
+        public float damageOnContact = 10f;
         public float lookSphereCastRadius = 0.2f;
         public int attackRateInTick = 2;
 

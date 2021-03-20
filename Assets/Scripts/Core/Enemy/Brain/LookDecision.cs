@@ -13,13 +13,13 @@ public class LookDecision : Decision
     [SerializeField] private float angleLook;
     [SerializeField] private LayerMask playerLayer;
     
-    public override bool Decide(StateController controller)
+    public override bool Decide(Enemy.EnemyController controller)
     {
         bool targetVisible = Look(controller);
         return targetVisible;
     }
 
-    private bool Look(StateController controller)
+    private bool Look(Enemy.EnemyController controller)
     {
         Collider2D hits = Physics2D.OverlapCircle(controller.eyes.position, lookDistance, playerLayer);
         if(hits == null) return false;

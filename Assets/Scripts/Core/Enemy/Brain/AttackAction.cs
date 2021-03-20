@@ -7,12 +7,12 @@ public class AttackAction : Action
 {
     public GameObject projectilePrefab;
 
-    public override void Act(StateController controller)
+    public override void Act(Enemy.EnemyController controller)
     {
         Attack(controller);
     }
 
-    private void Attack(StateController controller)
+    private void Attack(Enemy.EnemyController controller)
     {
         if(controller.CheckIfCountDownElapsed(controller.monsterData.attackRateInTick))
         {

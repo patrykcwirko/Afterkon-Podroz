@@ -11,18 +11,17 @@ public class PatrolAction : Action
     private bool movingRight  = true;
 
 
-    public override void Act(StateController controller)
+    public override void Act(Enemy.EnemyController controller)
     {
         Patrol(controller);
     }
 
-    public void Patrol(StateController controller)
+    public void Patrol(Enemy.EnemyController controller)
     {
         RaycastHit2D groundInfo = Physics2D.Raycast(controller.eyes.position, controller.eyes.TransformDirection(new Vector2(1, angle)), DISTANCE_RAYCAST, layerHit);
         RaycastHit2D wallInfo = Physics2D.Raycast(controller.eyes.position, controller.eyes.TransformDirection(Vector2.right), DISTANCE_RAYCAST, layerHit);
         Debug.DrawRay(controller.eyes.position, controller.eyes.TransformDirection(new Vector2(1, angle)) * DISTANCE_RAYCAST, Color.red);
         Debug.DrawRay(controller.eyes.position, controller.eyes.TransformDirection(Vector2.right) * DISTANCE_RAYCAST, Color.red);
-        Debug.Log($"ground: {groundInfo.collider} wall: {wallInfo.collider}");
         if (groundInfo.collider == null || wallInfo.collider)  controller.dirMove = ChangeDirection(controller.dirMove);
         if (controller.dirMove.x > 0) controller.transform.localScale = Vector3.one;
         else controller.transform.localScale = new Vector3(-1, 1, 1);
