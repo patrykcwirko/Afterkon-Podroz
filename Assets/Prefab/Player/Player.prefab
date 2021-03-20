@@ -92,6 +92,87 @@ Transform:
   m_Father: {fileID: -2643742882375989164}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2612435258705993774
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 218110808802265987}
+  - component: {fileID: 3303854887115313670}
+  m_Layer: 10
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &218110808802265987
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2612435258705993774}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.367, y: 0.239, z: -1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4224980683059647783}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &3303854887115313670
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2612435258705993774}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Color: {r: 0.9150943, g: 0.8600825, b: 0.038848326, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.2, y: 0.2}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &4224980683059647782
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,6 +190,7 @@ GameObject:
   - component: {fileID: 4224980683059647778}
   - component: {fileID: 1530370327}
   - component: {fileID: 354014846372951947}
+  - component: {fileID: 364241895}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -129,6 +211,7 @@ Transform:
   m_Children:
   - {fileID: -2643742882375989164}
   - {fileID: -3740304676493294174}
+  - {fileID: 218110808802265987}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -310,6 +393,36 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c9ed48cf-d24d-4da7-88d6-4383c093c922
     m_ActionName: Player/Stomp[/Keyboard/downArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1530370327}
+        m_MethodName: OnHeal
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 65fc8637-1ca6-4dab-967c-a976770f5b16
+    m_ActionName: Player/Heal[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1530370327}
+        m_MethodName: OnPushPull
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e017eccc-b933-41f1-88c4-c0f27f401a0d
+    m_ActionName: Player/PushPull[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -329,7 +442,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   jumping: {fileID: 11400000, guid: f35bcd4345d297240b8d7edca487dedb, type: 2}
-  hearts: {fileID: 0}
   groundCheck: {fileID: -2643742882375989164}
   wallCheck: {fileID: -3740304676493294174}
 --- !u!114 &1530370327
@@ -346,6 +458,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveDirection: 0
   dashDirection: 0
+  healPush: 0
 --- !u!114 &354014846372951947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,6 +471,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98fbdc2c4764cd44da3c7fbbf0a281fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hearts: {fileID: 0}
+  potionSystem: {fileID: 0}
+  invisibilityAfterHurt: 2
+--- !u!114 &364241895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4224980683059647782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e84cbb4b968c6dd4384af10b2f0a942d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pushPullDistance: 0.5
+  layer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &6546923916990955624
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,7 +27,7 @@ namespace Player
             Physics2D.queriesStartInColliders = false;
             RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.right), transform.localScale.x * pushPullDistance, layer);
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector2.right)* transform.localScale.x * pushPullDistance, Color.blue);
-            if(hit.collider != null && hit.collider.gameObject.tag == "Movable")
+            if(hit.collider != null && hit.collider.gameObject.tag == "Interactive")
             {
                 _crate = hit.collider.gameObject;
                 if(_playerInput.states.isPushPull)

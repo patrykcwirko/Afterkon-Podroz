@@ -8,8 +8,10 @@ namespace Player
         public float moveDirection;
         public float dashDirection;
         public StrStates states;
-        public bool healPush;
+        public float pushPullDistance = 0.3f;
+        public LayerMask layer;
 
+        [HideInInspector] public bool healPush;
         private const float DOUBLE_CLICK_TIME = .2f;
         private float _lastDirection = 0;
         private float _lastClickTime;
@@ -18,6 +20,21 @@ namespace Player
         private void Start() 
         {
             _gameController = FindObjectOfType<GameController>();
+        }
+
+        private void Update() 
+        {
+            Physics2D.queriesStartInColliders = false;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.right), transform.localScale.x * pushPullDistance, layer);
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector2.right) * transform.localScale.x * pushPullDistance, Color.blue);
+            if (hit.collider != null && hit.collider.gameObject.tag == "Interactive")
+            {
+                transform.Find("ActionIcon").gameObject.SetActive(true);
+            }
+            else
+            {
+                transform.Find("ActionIcon").gameObject.SetActive(false);
+            }
         }
 
         public void OnMove(InputAction.CallbackContext context)
