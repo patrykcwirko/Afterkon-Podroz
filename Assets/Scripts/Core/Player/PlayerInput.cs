@@ -43,10 +43,7 @@ namespace Player
         {
             if (context.phase == InputActionPhase.Performed) return;
             if (context.phase == InputActionPhase.Canceled) states.isJumpPushed = false;
-            if (context.phase == InputActionPhase.Started)
-            {
-                states.isJumpPushed = true;
-            }
+            if (context.phase == InputActionPhase.Started)  states.isJumpPushed = true;
         }
 
         public void OnStomp(InputAction.CallbackContext context)
@@ -60,6 +57,13 @@ namespace Player
                     states.isStompPushed = true;      
                 }
             }
+        }
+
+        public void OnPushPull(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Performed) return;
+            if (context.phase == InputActionPhase.Canceled) states.isPushPull = false;
+            if (context.phase == InputActionPhase.Started) states.isPushPull = true;
         }
 
         public void OnHeal(InputAction.CallbackContext context)
