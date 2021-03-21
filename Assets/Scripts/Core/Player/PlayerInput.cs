@@ -26,19 +26,20 @@ namespace Player
         private void Update() 
         {
             Physics2D.queriesStartInColliders = false;
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.right), transform.localScale.x * pushPullDistance, layerInteractive);
+            //RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.right), transform.localScale.x * pushPullDistance, layerInteractive);
+            Collider2D hit = Physics2D.OverlapCircle(transform.position, transform.localScale.x * pushPullDistance, layerInteractive);
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector2.right) * transform.localScale.x * pushPullDistance, Color.blue);
-            if (hit.collider != null && hit.collider.gameObject.tag == "Interactive")
+            if (hit != null && hit.gameObject.tag == "Interactive")
             {
                 transform.Find("ActionIcon").gameObject.SetActive(true);
-                _interactObject = hit.collider.gameObject;
+                _interactObject = hit.gameObject;
                 if(states.interactable)
                 {
-                    hit.collider.GetComponent<Iinteract>().Interact(transform);
+                    hit.GetComponent<Iinteract>().Interact(transform);
                 }
                 else
                 {
-                    hit.collider.GetComponent<Iinteract>().Desactive(transform);
+                    hit.GetComponent<Iinteract>().Desactive(transform);
                 }
             }
             else
