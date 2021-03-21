@@ -44,7 +44,7 @@ public class PresurePlate : MonoBehaviour, IKey
     private void OnTriggerEnter2D(Collider2D other) 
     {
 
-        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Movable")
+        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Interactive")
         {
             isPress = true;
             moveUp = true;
@@ -55,7 +55,7 @@ public class PresurePlate : MonoBehaviour, IKey
 
     private void OnTriggerExit2D(Collider2D other) 
     {
-        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Movable")
+        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Interactive")
         {
             if(hold) isPress = false;
             moveDown = true;

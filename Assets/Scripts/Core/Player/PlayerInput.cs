@@ -9,13 +9,14 @@ namespace Player
         public float dashDirection;
         public StrStates states;
         public float pushPullDistance = 0.3f;
-        public LayerMask layer;
+        public LayerMask layerInteractive;
 
         [HideInInspector] public bool healPush;
         private const float DOUBLE_CLICK_TIME = .2f;
         private float _lastDirection = 0;
         private float _lastClickTime;
         private GameController _gameController;
+        private GameObject _interactObject;
 
         private void Start() 
         {
@@ -25,15 +26,25 @@ namespace Player
         private void Update() 
         {
             Physics2D.queriesStartInColliders = false;
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.right), transform.localScale.x * pushPullDistance, layer);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.right), transform.localScale.x * pushPullDistance, layerInteractive);
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector2.right) * transform.localScale.x * pushPullDistance, Color.blue);
             if (hit.collider != null && hit.collider.gameObject.tag == "Interactive")
             {
                 transform.Find("ActionIcon").gameObject.SetActive(true);
+                _interactObject = hit.collider.gameObject;
+                if(states.interactable)
+                {
+                    hit.collider.GetComponent<Iinteract>().Interact(transform);
+                }
+                else
+                {
+                    hit.collider.GetComponent<Iinteract>().Desactive(transform);
+                }
             }
             else
             {
                 transform.Find("ActionIcon").gameObject.SetActive(false);
+                if(_interactObject != null && !states.interactable) _interactObject.GetComponent<Iinteract>().Desactive(transform);
             }
         }
 
@@ -79,8 +90,8 @@ namespace Player
         public void OnPushPull(InputAction.CallbackContext context)
         {
             if (context.phase == InputActionPhase.Performed) return;
-            if (context.phase == InputActionPhase.Canceled) states.isPushPull = false;
-            if (context.phase == InputActionPhase.Started) states.isPushPull = true;
+            if (context.phase == InputActionPhase.Canceled) states.interactable = false;
+            if (context.phase == InputActionPhase.Started) states.interactable = true;
         }
 
         public void OnHeal(InputAction.CallbackContext context)
