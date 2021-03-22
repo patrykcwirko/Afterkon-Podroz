@@ -34,4 +34,20 @@ public class MovablePlatrorm : MonoBehaviour
             _directionMove = Vector3.left;
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D other) 
+    {
+        if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            other.collider.transform.SetParent(transform);
+        }   
+    }
+
+    private void OnCollisionExit2D(Collision2D other) 
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            other.collider.transform.SetParent(null);
+        }
+    }
 }

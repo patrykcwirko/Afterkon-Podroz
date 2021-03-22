@@ -6,7 +6,7 @@ using UnityEngine;
 public class MoveTrap : MonoBehaviour
 {
     [SerializeField] private AnimationClip clip;
-    [SerializeField] private int maxTickBetweenChange = 30;
+    [SerializeField] private int tickBetweenChange = 30;
     [SerializeField] private int timeOff = 2;
 
     private int _lastTimeActivate;
@@ -17,7 +17,7 @@ public class MoveTrap : MonoBehaviour
     {
         _animation = GetComponent<Animation>();
         _animation.AddClip(clip, clip.name);
-        _timeBetweenChange = UnityEngine.Random.Range(20, maxTickBetweenChange);
+        _timeBetweenChange = tickBetweenChange;
         TimeTickSystem.onTick += MoveOnTick;
     }
 
@@ -27,7 +27,7 @@ public class MoveTrap : MonoBehaviour
         {
             _lastTimeActivate = e.tick;
             _animation.Play(clip.name, PlayMode.StopAll);
-            _timeBetweenChange = UnityEngine.Random.Range(20, maxTickBetweenChange);
+            _timeBetweenChange = tickBetweenChange;
         }
     }
 }

@@ -141,7 +141,7 @@ namespace Player
         private void FlipSprite()
         {
             if (_playerInput.moveDirection == 0) return;
-            transform.localScale = new Vector2(Mathf.Sign(_playerInput.moveDirection), 1f);
+            transform.localScale = new Vector2( Mathf.Abs(transform.localScale.x) * _playerInput.moveDirection, 1f);
         }
 
         private void Jump()
