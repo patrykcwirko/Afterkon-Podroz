@@ -12,6 +12,7 @@ namespace Player
         public bool isWall;
         public bool isObject;
         public bool canDoubleJump;
+        public bool canStomp;
         public bool isMoving;
         public bool interactable;
     }

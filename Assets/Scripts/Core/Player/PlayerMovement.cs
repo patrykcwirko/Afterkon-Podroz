@@ -15,11 +15,6 @@ namespace Player
 
         Animator _Animator;
 
-        internal IEnumerator Knockback(object knockbackDuration, object knockbackPower, Vector3 position)
-        {
-            throw new NotImplementedException();
-        }
-
         Rigidbody2D _rigidbody2D;
         GameController _gameController;
         PlayerInput _playerInput;
@@ -75,12 +70,13 @@ namespace Player
             if (_playerInput.states.isGrounded || _playerInput.states.isObject)
             {
                 _playerInput.states.canDoubleJump = true;
-                if ( _playerInput.states.isStompPushed)
+                if ( _playerInput.states.isStompPushed && _playerInput.states.canStomp)
                 {
                     StartCoroutine(jumping.stompShake.Shake());
+                    _playerInput.states.canStomp = false;
                 }
+                _playerInput.states.isStompPushed = false;
             } 
-            if (_playerInput.states.isGrounded) _playerInput.states.isStompPushed = false;
         }
 
         private void Dash()
@@ -154,6 +150,7 @@ namespace Player
             if (_playerInput.states.isGrounded || _playerInput.states.isObject)
             {
                 _rigidbody2D.velocity += new Vector2(_rigidbody2D.velocity.x, jumping.jumpForce);
+                _playerInput.states.canStomp = true;
             }
             else if (_playerInput.states.canDoubleJump && _gameController.doubleJumpEvable)
             {

@@ -26,7 +26,6 @@ namespace Player
         private void Update() 
         {
             Physics2D.queriesStartInColliders = false;
-            //RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.right), transform.localScale.x * pushPullDistance, layerInteractive);
             Collider2D hit = Physics2D.OverlapCircle(transform.position, transform.localScale.x * pushPullDistance, layerInteractive);
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector2.right) * transform.localScale.x * pushPullDistance, Color.blue);
             if (hit != null && hit.gameObject.tag == "Interactive")
