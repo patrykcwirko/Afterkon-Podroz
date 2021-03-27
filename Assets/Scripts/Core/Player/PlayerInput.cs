@@ -35,6 +35,7 @@ namespace Player
                 if(states.interactable)
                 {
                     hit.GetComponent<Iinteract>().Interact(transform);
+                    states.interactable = false;
                 }
                 else
                 {
@@ -78,13 +79,14 @@ namespace Player
         {
             if (context.phase == InputActionPhase.Performed) return;
             if (context.phase == InputActionPhase.Canceled) states.isStompPushed = false;
-            if (context.phase == InputActionPhase.Started) 
-            {
-                if (!states.isGrounded && _gameController.stompEnable)
-                {
-                    states.isStompPushed = true;      
-                }
-            }
+            if (context.phase == InputActionPhase.Started) states.isStompPushed = true;
+            // {
+                      
+                // if (!states.isGrounded && _gameController.stompEnable)
+                // {
+                //     states.isStompPushed = true;      
+                // }
+            // }
         }
 
         public void OnPushPull(InputAction.CallbackContext context)

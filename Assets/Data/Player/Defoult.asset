@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 519a515d34662af4d9b1f7f1ee2a0b97, type: 3}
   m_Name: Defoult
   m_EditorClassIdentifier: 
-  jumpForce: 11.5
-  stompForce: 5
+  jumpForce: 18
+  stompForce: 10
   stompShake: {fileID: 11400000, guid: 8d80702ede4015f47bd9b6a158178c6d, type: 2}
   dashForce: 20
   dashTime: 0.2

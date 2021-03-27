@@ -75,7 +75,6 @@ namespace Player
                     StartCoroutine(jumping.stompShake.Shake());
                     _playerInput.states.canStomp = false;
                 }
-                _playerInput.states.isStompPushed = false;
             } 
         }
 
@@ -163,8 +162,9 @@ namespace Player
 
         private void Stomp()
         {
-            if(!_playerInput.states.isStompPushed) return;
+            if(!_playerInput.states.canStomp) return;
             _rigidbody2D.velocity += new Vector2(0, -jumping.stompForce);
+            _playerInput.states.canStomp = false;
         }
 
         private void SpawnEffect()

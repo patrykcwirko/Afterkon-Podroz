@@ -8,14 +8,12 @@ public class OneWayPlatform : MonoBehaviour
     public float timeToChange = 0.05f;
 
     private PlatformEffector2D effector2D;
-    private float _currentTime;
     private Player.PlayerInput _playerInput;
 
     void Start()
     {
         effector2D = GetComponent<PlatformEffector2D>();
         _playerInput = player.GetComponent<Player.PlayerInput>();
-        _currentTime = timeToChange;
     }
 
     private void Update() 
@@ -26,7 +24,7 @@ public class OneWayPlatform : MonoBehaviour
     IEnumerator FallTime()
     {
         effector2D.rotationalOffset = 180f;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(timeToChange);
         effector2D.rotationalOffset = 0;
     }
 }
