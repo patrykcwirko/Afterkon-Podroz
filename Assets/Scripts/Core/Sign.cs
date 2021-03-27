@@ -9,6 +9,9 @@ public class Sign : MonoBehaviour, Iinteract
 {
     [SerializeField] private GameObject _dialogWindow;
     [SerializeField] private Dialog dialog;
+    [SerializeField] private bool doAction;
+    [SerializeField] private ActionEvent _actionEvent;
+    [SerializeField] private GameObject _actionObject;
     private DialogController _dialog;
     private Text _dialogText;
     private FixedJoint2D _fixedJoint;
@@ -41,6 +44,7 @@ public class Sign : MonoBehaviour, Iinteract
             _dialogWindow.SetActive(false);
             _fixedJoint.enabled = false;
             _dialogIndex = 0;
+            if(doAction) _actionEvent.DoAction(_actionObject);
         }
     }
 }
