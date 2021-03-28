@@ -14,6 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialog:
   - name: 
-    text: "O czytasz to. Tak wi\u0119c mam dla ciebie rad\u0119. ZA TOB\u0104!!"
-  - name: 
-    text: "A nie m\xF3wi\u0142em"
+    text: "NIe id\u017A w t\u0119 storn\u0119!!"

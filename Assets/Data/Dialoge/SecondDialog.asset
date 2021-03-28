@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3d529b2f101bf34088cf9d16e3152df, type: 3}
   m_Name: SecondDialog
   m_EditorClassIdentifier: 
-  dialog: []
+  dialog:
+  - name: Dign
+    text: "A ci\u0119 ostrzega\u0142em, a teraz. ZA TOB\u0104!!"

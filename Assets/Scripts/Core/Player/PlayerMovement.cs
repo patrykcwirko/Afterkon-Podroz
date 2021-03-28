@@ -148,11 +148,13 @@ namespace Player
             if(!_playerInput.states.isJumpPushed) return;
             if (_playerInput.states.isGrounded || _playerInput.states.isObject)
             {
+                _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, 0);
                 _rigidbody2D.velocity += new Vector2(_rigidbody2D.velocity.x, jumping.jumpForce);
                 _playerInput.states.canStomp = true;
             }
             else if (_playerInput.states.canDoubleJump && _gameController.doubleJumpEvable)
             {
+                _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, 0);
                 _rigidbody2D.velocity += new Vector2(_rigidbody2D.velocity.x, jumping.jumpForce);
                 SpawnEffect();
                 _playerInput.states.canDoubleJump = false;
