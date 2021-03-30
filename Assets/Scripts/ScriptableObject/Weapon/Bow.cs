@@ -12,6 +12,7 @@ public class Bow : Weapon
         GameObject projectile = Instantiate(arrowPrefab, player.transform.Find("Weapon").position, Quaternion.identity);
         Vector2 dirToTarget = new Vector2( player.transform.localScale.x, 0f);
         projectile.GetComponent<Projectile>().direction = dirToTarget;
+        projectile.GetComponent<Projectile>().damage = damageAmount;
         projectile.transform.localScale = player.transform.localScale;
     }
 

@@ -19,11 +19,11 @@ public class GameController : MonoBehaviour
     [SerializeField] public bool dashEnable;
     [SerializeField] GameCamera gameCamera;
     [SerializeField] Transform currentCheckPoint;
-    [SerializeField] Weapon[] weapons;
+    [SerializeField] public Weapon[] weapons;
 
+    [HideInInspector] public int weaponIndex = 0;
     private HeartsHealthVisual healthVisual;
     private PotionSystemVisual potionSystem;
-    private int weaponIndex = 0;
 
     void Awake()
     {
