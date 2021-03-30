@@ -23,12 +23,13 @@ public class GameController : MonoBehaviour
 
     private HeartsHealthVisual healthVisual;
     private PotionSystemVisual potionSystem;
+    private int weaponIndex = 0;
 
     void Awake()
     {
         healthVisual = FindObjectOfType<HeartsHealthVisual>();
         potionSystem = FindObjectOfType<PotionSystemVisual>();
-        FindObjectOfType<Player.PlayerCombat>().sword = weapons[0];
+        FindObjectOfType<Player.PlayerCombat>().sword = weapons[weaponIndex];
         gameCamera.cameraFollow.Setup(() => gameCamera.playerTrasform.position + gameCamera.offset);
         healthVisual.onDeath += Game_OnDeath;
     }
@@ -44,5 +45,21 @@ public class GameController : MonoBehaviour
     public void SetCheckPoint(Transform checkPoint)
     {
         currentCheckPoint = checkPoint;
+    }
+    public void SwitchWeapon()
+    {
+        var player = FindObjectOfType<Player.PlayerCombat>();
+        weaponIndex++;
+        if (weaponIndex < weapons.Length)
+        {
+            player.sword = weapons[weaponIndex];
+            player.sword.Setup(player);
+        }
+        else
+        {
+            weaponIndex = 0;
+            player.sword = weapons[weaponIndex];
+            player.sword.Setup(player);
+        }
     }
 }

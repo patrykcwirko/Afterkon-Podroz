@@ -73,7 +73,6 @@ namespace Player
             }
         }
 
-
         public void OnInteract(InputAction.CallbackContext context)
         {
             if (context.phase == InputActionPhase.Performed) return;
@@ -87,6 +86,12 @@ namespace Player
             {
                 healPush = true;
             } 
+        }
+
+        public void OnWeaponSwitch(InputAction.CallbackContext context)
+        {
+            if (context.phase != InputActionPhase.Started) return;
+            _gameController.SwitchWeapon();
         }
     }
 
