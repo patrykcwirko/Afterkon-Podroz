@@ -2,6 +2,7 @@
 using System.Collections;
 using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Player
 {
@@ -19,26 +20,22 @@ namespace Player
         GameController _gameController;
         PlayerInput _playerInput;
 
-        private float _currentDashTimer = 0;
         private float _dashTimeLeft;
         private float _lastImageXpos;
         private float _lastDash = -100f;
         private bool _isDashing;
-
 
         void Start()
         {
             Setup();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             ChangeAnimation();
             FlipSprite();
-            Stomp();
             Movement();
             Dash();
-            Jump();
             CheckPositionInWorld();
         }
 
@@ -50,14 +47,31 @@ namespace Player
             _playerInput = GetComponent<PlayerInput>();
         }
 
+        public void Jump(InputAction.CallbackContext obj)
+        {
+            if (obj.phase != InputActionPhase.Started) return;
+            if (_playerInput.states.isGrounded || _playerInput.states.isObject)
+            {
+                _rigidbody2D.velocity = Vector2.up * jumping.jumpForce;
+                _playerInput.states.canStomp = true;
+            }
+            else if (_playerInput.states.canDoubleJump && _gameController.doubleJumpEvable)
+            {
+                _rigidbody2D.velocity = Vector2.up * jumping.jumpForce;
+                SpawnEffect();
+                _playerInput.states.canDoubleJump = false;
+            }
+        }
+
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.tag == "Destructible")
             {
-                if (_playerInput.states.isStompPushed)
+                if (_playerInput.states.stomp)
                 {
-                    _playerInput.states.isStompPushed = false;
+                    _playerInput.states.stomp = false;
                     Destroy(collision.gameObject);
+                    StartCoroutine(jumping.stompShake.Shake());
                 }
             }
         }
@@ -70,10 +84,11 @@ namespace Player
             if (_playerInput.states.isGrounded || _playerInput.states.isObject)
             {
                 _playerInput.states.canDoubleJump = true;
-                if ( _playerInput.states.isStompPushed && _playerInput.states.canStomp)
+                if (_playerInput.states.stomp && _playerInput.states.canStomp)
                 {
                     StartCoroutine(jumping.stompShake.Shake());
                     _playerInput.states.canStomp = false;
+                    _playerInput.states.stomp = false;
                 }
             } 
         }
@@ -143,30 +158,12 @@ namespace Player
             transform.localScale = new Vector2( Mathf.Abs(transform.localScale.x) * _playerInput.moveDirection, 1f);
         }
 
-        private void Jump()
+        public void Stomp(InputAction.CallbackContext obj)
         {
-            if(!_playerInput.states.isJumpPushed) return;
-            if (_playerInput.states.isGrounded || _playerInput.states.isObject)
-            {
-                _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, 0);
-                _rigidbody2D.velocity += new Vector2(_rigidbody2D.velocity.x, jumping.jumpForce);
-                _playerInput.states.canStomp = true;
-            }
-            else if (_playerInput.states.canDoubleJump && _gameController.doubleJumpEvable)
-            {
-                _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, 0);
-                _rigidbody2D.velocity += new Vector2(_rigidbody2D.velocity.x, jumping.jumpForce);
-                SpawnEffect();
-                _playerInput.states.canDoubleJump = false;
-            }
-            _playerInput.states.isJumpPushed = false;
-        }
-
-        private void Stomp()
-        {
-            if(!_playerInput.states.canStomp) return;
+            if (obj.phase != InputActionPhase.Started) return;
+            if (!_playerInput.states.canStomp) return;
             _rigidbody2D.velocity += new Vector2(0, -jumping.stompForce);
-            _playerInput.states.canStomp = false;
+            _playerInput.states.stomp = true;
         }
 
         private void SpawnEffect()

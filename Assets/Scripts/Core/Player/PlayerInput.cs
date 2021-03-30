@@ -23,7 +23,12 @@ namespace Player
             _gameController = FindObjectOfType<GameController>();
         }
 
-        private void Update() 
+        private void Update()
+        {
+            CheckInteractInRange();
+        }
+
+        private void CheckInteractInRange()
         {
             Physics2D.queriesStartInColliders = false;
             Collider2D hit = Physics2D.OverlapCircle(transform.position, transform.localScale.x * pushPullDistance, layerInteractive);
@@ -32,7 +37,7 @@ namespace Player
             {
                 transform.Find("ActionIcon").gameObject.SetActive(true);
                 _interactObject = hit.gameObject;
-                if(states.interactable)
+                if (states.interactable)
                 {
                     hit.GetComponent<Iinteract>().Interact(transform);
                     states.interactable = false;
@@ -45,7 +50,7 @@ namespace Player
             else
             {
                 transform.Find("ActionIcon").gameObject.SetActive(false);
-                if(_interactObject != null && !states.interactable) _interactObject.GetComponent<Iinteract>().Desactive(transform);
+                if (_interactObject != null && !states.interactable) _interactObject.GetComponent<Iinteract>().Desactive(transform);
             }
         }
 
@@ -68,28 +73,8 @@ namespace Player
             }
         }
 
-        public void OnJump(InputAction.CallbackContext context)
-        {
-            if (context.phase == InputActionPhase.Performed) return;
-            if (context.phase == InputActionPhase.Canceled) states.isJumpPushed = false;
-            if (context.phase == InputActionPhase.Started)  states.isJumpPushed = true;
-        }
 
-        public void OnStomp(InputAction.CallbackContext context)
-        {
-            if (context.phase == InputActionPhase.Performed) return;
-            if (context.phase == InputActionPhase.Canceled) states.isStompPushed = false;
-            if (context.phase == InputActionPhase.Started) states.isStompPushed = true;
-            // {
-                      
-                // if (!states.isGrounded && _gameController.stompEnable)
-                // {
-                //     states.isStompPushed = true;      
-                // }
-            // }
-        }
-
-        public void OnPushPull(InputAction.CallbackContext context)
+        public void OnInteract(InputAction.CallbackContext context)
         {
             if (context.phase == InputActionPhase.Performed) return;
             if (context.phase == InputActionPhase.Canceled) states.interactable = false;

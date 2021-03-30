@@ -13,6 +13,7 @@ namespace Player
         public bool isObject;
         public bool canDoubleJump;
         public bool canStomp;
+        public bool stomp;
         public bool isMoving;
         public bool interactable;
     }
