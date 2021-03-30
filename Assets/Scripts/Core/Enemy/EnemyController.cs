@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Enemy
 {
-    public class EnemyController : MonoBehaviour
+    public class EnemyController : MonoBehaviour, IEntityController
     {
         public MonsterData monsterData;
         public State currentState;
@@ -77,6 +77,11 @@ namespace Enemy
             {
                 Destroy(gameObject);
             }
+        }
+
+        public void TakeDamge(float damage)
+        {
+            Damage(damage);
         }
     }
 }

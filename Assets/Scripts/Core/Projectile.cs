@@ -6,8 +6,9 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] float speed = 1f;
     [SerializeField] public float damage = 25f;
+    [SerializeField] LayerMask targetLayer;
 
-    public Vector2 direction;
+    [HideInInspector] public Vector2 direction;
 
     void Update()
     {
@@ -17,17 +18,10 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.layer == LayerMask.NameToLayer("Ground")) Destroy(gameObject);
-        if (other.gameObject.layer == LayerMask.NameToLayer("Player")) 
+        if (other.gameObject.layer == (int)Mathf.Log(targetLayer.value, 2)) 
         {
-            Player.PlayerCombat player = other.gameObject.GetComponent<Player.PlayerCombat>();
-            player.hearts.GetHeartSystem().Damage(damage);
-            player.TriggerHurt();
-            Destroy(gameObject);
-        }
-        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-        {
-            Enemy.EnemyController enemy = other.gameObject.GetComponent<Enemy.EnemyController>();
-            enemy.Damage(damage);
+            IEntityController entity = other.gameObject.GetComponent<IEntityController>();
+            entity.TakeDamge(damage);
             Destroy(gameObject);
         }
     }

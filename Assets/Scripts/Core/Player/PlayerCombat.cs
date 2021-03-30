@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace Player
 {
-    public class PlayerCombat : MonoBehaviour
+    public class PlayerCombat : MonoBehaviour, IEntityController
     {
         [SerializeField] public Weapon sword;
         public HeartsHealthVisual hearts;
@@ -75,6 +75,12 @@ namespace Player
             Physics2D.IgnoreLayerCollision(enemyLayer, playerLayer, false);
             Physics2D.IgnoreLayerCollision(projectileLayer, playerLayer, false);
             _animator.SetLayerWeight(1, 0);
+        }
+
+        public void TakeDamge(float damage)
+        {
+            hearts.GetHeartSystem().Damage(damage);
+            TriggerHurt();
         }
     }
 }
