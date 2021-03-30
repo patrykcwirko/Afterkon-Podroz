@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterName: Range
   monsterSprite: {fileID: 21300000, guid: 170577bce7cbda144b82578f81308d23, type: 3}
-  monsterStats: {fileID: 11400000, guid: eb61f536afa417e438df977bde5287c0, type: 2}
+  monsterStats: {fileID: 11400000, guid: 2a26f204ae3b78a45985211c9a0a6a4c, type: 2}
   damageOnContact: 10
   lookSphereCastRadius: 0.2
   attackRateInTick: 5

@@ -24,5 +24,11 @@ public class Projectile : MonoBehaviour
             player.TriggerHurt();
             Destroy(gameObject);
         }
+        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            Enemy.EnemyController enemy = other.gameObject.GetComponent<Enemy.EnemyController>();
+            enemy.Damage(damage);
+            Destroy(gameObject);
+        }
     }
 }

@@ -19,14 +19,16 @@ public class GameController : MonoBehaviour
     [SerializeField] public bool dashEnable;
     [SerializeField] GameCamera gameCamera;
     [SerializeField] Transform currentCheckPoint;
+    [SerializeField] Weapon[] weapons;
 
     private HeartsHealthVisual healthVisual;
     private PotionSystemVisual potionSystem;
 
-    void Start()
+    void Awake()
     {
         healthVisual = FindObjectOfType<HeartsHealthVisual>();
         potionSystem = FindObjectOfType<PotionSystemVisual>();
+        FindObjectOfType<Player.PlayerCombat>().sword = weapons[0];
         gameCamera.cameraFollow.Setup(() => gameCamera.playerTrasform.position + gameCamera.offset);
         healthVisual.onDeath += Game_OnDeath;
     }

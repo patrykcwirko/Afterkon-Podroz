@@ -8,7 +8,7 @@ namespace Player
 {
     public class PlayerCombat : MonoBehaviour
     {
-        [SerializeField] private AnimationClip shortAttack;
+        [SerializeField] public Weapon sword;
         public HeartsHealthVisual hearts;
         public PotionSystemVisual potionSystem;
         public float invisibilityAfterHurt = 2f;
@@ -22,7 +22,9 @@ namespace Player
             _playerInput = GetComponent<PlayerInput>();
             _animator = GetComponent<Animator>();
             _anim = GetComponent<Animation>();
-            _anim.AddClip(shortAttack, "shortAttack");
+            sword.Setup(this);
+            _anim.AddClip(sword.shortAttack, "shortAttack");
+            _anim.AddClip(sword.longAttack, "longAttack");
         }
 
         void Update()
@@ -34,7 +36,7 @@ namespace Player
                 hearts.GetHeartSystem().Heal(20);
                 _playerInput.healPush = false;
             }
-            if (!_anim.IsPlaying("shortAttack"))  transform.Find("Weapon").gameObject.SetActive(false);
+            if (!_anim.isPlaying)  transform.Find("Weapon").gameObject.SetActive(false);
         }
 
         public void TriggerHurt()
@@ -44,8 +46,18 @@ namespace Player
 
         public void ShortAttack(InputAction.CallbackContext context)
         {
+            if (context.phase != InputActionPhase.Started) return;
             transform.Find("Weapon").gameObject.SetActive(true);
             _anim.Play("shortAttack");
+            sword.Attack(this);
+        }
+        
+        public void LongAttack(InputAction.CallbackContext context)
+        {
+            if (context.phase != InputActionPhase.Started) return;
+            transform.Find("Weapon").gameObject.SetActive(true);
+            _anim.Play("longAttack");
+            sword.Attack(this);
         }
 
         IEnumerator HurtBlinker(float hurtTime)

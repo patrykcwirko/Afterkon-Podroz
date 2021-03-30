@@ -14,7 +14,6 @@ public class BreakBlock : MonoBehaviour
         {
             if(currentSpriteIndex < breakSprite.Length)
             {
-                Debug.Log(currentSpriteIndex);
                 transform.Find("BreakImage").GetComponent<SpriteRenderer>().sprite = breakSprite[currentSpriteIndex++];
             }
             else
