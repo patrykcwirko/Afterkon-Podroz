@@ -30,7 +30,7 @@ namespace Player
             Setup();
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             ChangeAnimation();
             FlipSprite();
@@ -74,6 +74,15 @@ namespace Player
                     StartCoroutine(jumping.stompShake.Shake());
                 }
             }
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") || collision.gameObject.layer == LayerMask.NameToLayer("Object"))
+            {
+                if (_playerInput.states.stomp && _playerInput.states.canStomp)
+                {
+                    StartCoroutine(jumping.stompShake.Shake());
+                    _playerInput.states.canStomp = false;
+                    _playerInput.states.stomp = false;
+                }
+            }
         }
 
         private void CheckPositionInWorld()
@@ -83,13 +92,7 @@ namespace Player
             _playerInput.states.isObject = Physics2D.OverlapCircle(groundCheck.position, jumping.checkRadius, jumping.whatIsObject);
             if (_playerInput.states.isGrounded || _playerInput.states.isObject)
             {
-                _playerInput.states.canDoubleJump = true;
-                if (_playerInput.states.stomp && _playerInput.states.canStomp)
-                {
-                    StartCoroutine(jumping.stompShake.Shake());
-                    _playerInput.states.canStomp = false;
-                    _playerInput.states.stomp = false;
-                }
+                _playerInput.states.canDoubleJump = true;    
             } 
         }
 
