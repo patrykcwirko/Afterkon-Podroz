@@ -2,22 +2,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Player
 {
     public class PlayerCombat : MonoBehaviour
     {
+        [SerializeField] private AnimationClip shortAttack;
         public HeartsHealthVisual hearts;
         public PotionSystemVisual potionSystem;
         public float invisibilityAfterHurt = 2f;
 
         private PlayerInput _playerInput;
         private Animator _animator;
+        private Animation _anim;
         
         void Start()
         {
             _playerInput = GetComponent<PlayerInput>();
             _animator = GetComponent<Animator>();
+            _anim = GetComponent<Animation>();
+            _anim.AddClip(shortAttack, "shortAttack");
         }
 
         void Update()
@@ -29,11 +34,18 @@ namespace Player
                 hearts.GetHeartSystem().Heal(20);
                 _playerInput.healPush = false;
             }
+            if (!_anim.IsPlaying("shortAttack"))  transform.Find("Weapon").gameObject.SetActive(false);
         }
 
         public void TriggerHurt()
         {
             StartCoroutine(HurtBlinker(invisibilityAfterHurt));
+        }
+
+        public void ShortAttack(InputAction.CallbackContext context)
+        {
+            transform.Find("Weapon").gameObject.SetActive(true);
+            _anim.Play("shortAttack");
         }
 
         IEnumerator HurtBlinker(float hurtTime)

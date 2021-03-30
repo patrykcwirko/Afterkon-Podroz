@@ -44,6 +44,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "ShortAttack",
+                    "type": "Button",
+                    "id": "8a6561e7-f047-4143-84cf-262d1abc2466",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -132,6 +140,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "PushPull",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f639a1c2-e3d0-478b-ac6f-9de357de79b4",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShortAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
