@@ -31,7 +31,7 @@ namespace Player
         private void CheckInteractInRange()
         {
             Physics2D.queriesStartInColliders = false;
-            Collider2D hit = Physics2D.OverlapCircle(transform.position, transform.localScale.x * pushPullDistance, layerInteractive);
+            Collider2D hit = Physics2D.OverlapCircle(transform.position,  pushPullDistance, layerInteractive);
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector2.right) * transform.localScale.x * pushPullDistance, Color.blue);
             if (hit != null && hit.gameObject.tag == "Interactive")
             {
@@ -40,7 +40,6 @@ namespace Player
                 if (states.interactable)
                 {
                     hit.GetComponent<Iinteract>().Interact(transform);
-                    states.interactable = false;
                 }
                 else
                 {

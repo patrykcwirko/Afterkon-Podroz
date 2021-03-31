@@ -46,5 +46,6 @@ public class Sign : MonoBehaviour, Iinteract
             _dialogIndex = 0;
             if(doAction) _actionEvent.DoAction(_actionObject);
         }
+        player.GetComponent<Player.PlayerInput>().states.interactable = false;
     }
 }

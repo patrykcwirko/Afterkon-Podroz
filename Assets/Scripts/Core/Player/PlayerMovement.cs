@@ -92,7 +92,8 @@ namespace Player
             _playerInput.states.isObject = Physics2D.OverlapCircle(groundCheck.position, jumping.checkRadius, jumping.whatIsObject);
             if (_playerInput.states.isGrounded || _playerInput.states.isObject)
             {
-                _playerInput.states.canDoubleJump = true;    
+                _playerInput.states.canDoubleJump = true;
+                _playerInput.states.stomp = false;
             } 
         }
 
@@ -164,6 +165,7 @@ namespace Player
         public void Stomp(InputAction.CallbackContext obj)
         {
             if (obj.phase != InputActionPhase.Started) return;
+            _playerInput.states.downPush = true;
             if (!_playerInput.states.canStomp) return;
             _rigidbody2D.velocity += new Vector2(0, -jumping.stompForce);
             _playerInput.states.stomp = true;

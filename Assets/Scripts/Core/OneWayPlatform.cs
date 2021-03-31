@@ -18,7 +18,7 @@ public class OneWayPlatform : MonoBehaviour
 
     private void Update() 
     {
-        if(_playerInput.states.isStompPushed) StartCoroutine(FallTime());
+        if(_playerInput.states.downPush) StartCoroutine(FallTime());
     }
 
     IEnumerator FallTime()
@@ -26,5 +26,6 @@ public class OneWayPlatform : MonoBehaviour
         effector2D.rotationalOffset = 180f;
         yield return new WaitForSeconds(timeToChange);
         effector2D.rotationalOffset = 0;
+        _playerInput.states.downPush = false;
     }
 }

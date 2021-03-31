@@ -14,6 +14,7 @@ public class PresurePlate : MonoBehaviour, IKey
     private bool isPress = false;
     private bool moveUp = false;
     private bool moveDown = false;
+    private bool interactIn = false;
     private int _currentTime;
 
     private void Start() 
@@ -43,9 +44,9 @@ public class PresurePlate : MonoBehaviour, IKey
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
-
         if (other.gameObject.tag == "Player" || other.gameObject.tag == "Interactive")
         {
+            if (other.gameObject.tag == "Interactive") interactIn = true;
             isPress = true;
             moveUp = true;
             moveDown = false;
@@ -57,10 +58,15 @@ public class PresurePlate : MonoBehaviour, IKey
     {
         if (other.gameObject.tag == "Player" || other.gameObject.tag == "Interactive")
         {
-            if(hold) isPress = false;
-            moveDown = true;
-            moveUp = false;
-            _currentTime = 0;
+            if (interactIn && other.gameObject.tag == "Player") return;
+            else
+            {
+                if (hold) isPress = false;
+                moveDown = true;
+                moveUp = false;
+                interactIn = false;
+                 _currentTime = 0;
+            }
         }
     }
 
