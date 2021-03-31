@@ -22,6 +22,7 @@ public class PatrolAction : Action
         RaycastHit2D wallInfo = Physics2D.Raycast(controller.eyes.position, controller.eyes.TransformDirection(Vector2.right), DISTANCE_RAYCAST, layerHit);
         Debug.DrawRay(controller.eyes.position, controller.eyes.TransformDirection(new Vector2(1, angle)) * DISTANCE_RAYCAST, Color.red);
         Debug.DrawRay(controller.eyes.position, controller.eyes.TransformDirection(Vector2.right) * DISTANCE_RAYCAST, Color.red);
+        controller.GetComponent<SpriteRenderer>().sprite = controller.monsterData.Sprite();
         if (groundInfo.collider == null || wallInfo.collider)  controller.dirMove = ChangeDirection(controller.dirMove);
         if (controller.dirMove.x > 0) controller.transform.localScale = Vector3.one;
         else controller.transform.localScale = new Vector3(-1, 1, 1);
