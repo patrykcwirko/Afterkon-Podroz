@@ -9,6 +9,7 @@ namespace Enemy
     {
         [SerializeField] string monsterName;
         [SerializeField] Sprite monsterSprite;
+        [SerializeField] Sprite monsterAttackSprite;
         [SerializeField] Stats monsterStats;
         public float damageOnContact = 10f;
         public float lookSphereCastRadius = 0.2f;
@@ -18,6 +19,7 @@ namespace Enemy
         public string MonsterName() { return monsterName; }
         public Stats Stats() { return monsterStats; }
         public Sprite Sprite() { return monsterSprite; }
+        public Sprite AttackSprite() { return monsterAttackSprite; }
     }
 }
 

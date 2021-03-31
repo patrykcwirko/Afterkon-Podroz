@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e77a3204d0db8564a9a62b7500169378, type: 3}
+  m_Name: Note
+  m_EditorClassIdentifier: 
+  monsterName: Note
+  monsterSprite: {fileID: 6257677035871968672, guid: 9b7e6d2ed8a898a41aa75e14d20d94d2,
+    type: 3}
+  monsterAttackSprite: {fileID: 8039372748551541876, guid: 9b7e6d2ed8a898a41aa75e14d20d94d2,
+    type: 3}
+  monsterStats: {fileID: 11400000, guid: f0d671cfef97390469e9df296b6ceed0, type: 2}
+  damageOnContact: 10
+  lookSphereCastRadius: 0.2
+  attackRateInTick: 2

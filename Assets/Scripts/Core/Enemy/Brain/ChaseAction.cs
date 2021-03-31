@@ -10,7 +10,9 @@ public class ChaseAction : Action
 
     private void Chase(Enemy.EnemyController controller)
     {
-        Vector2 distToTarget = (controller.transform.position - controller.chaseTarget.position).normalized;
-        controller.transform.Translate(-distToTarget * controller.monsterData.Stats().speed * Time.deltaTime);
+        Vector2 dirMove = (controller.transform.position - controller.chaseTarget.position).normalized;
+        if (dirMove.x < 0) controller.transform.localScale = Vector3.one;
+        else controller.transform.localScale = new Vector3(-1, 1, 1);
+        controller.transform.Translate(-dirMove * controller.monsterData.Stats().speed * Time.deltaTime);
     }
 }
