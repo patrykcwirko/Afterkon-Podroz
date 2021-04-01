@@ -1,0 +1,39 @@
+﻿.header
+{
+	-unity-font-style: bold;
+	font-size: 20px;
+}
+
+#prewiew
+{
+	height: 300px;
+	width: 300px;
+	align-self: center;
+}
+
+#enemy-info-scroll
+{
+	flex-grow: 1;
+}
+
+#dialog-button
+{
+	-unity-font-style: bold;
+}
+
+Box
+{
+	flex-grow: 1;
+}
+
+TemplateContainer
+{
+	flex-grow: 1;
+	flex-direction: row;
+}
+
+ListView
+{
+	width: 225px;
+	-unity-text-align: middle-center;
+}

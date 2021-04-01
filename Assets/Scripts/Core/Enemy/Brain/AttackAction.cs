@@ -16,10 +16,10 @@ public class AttackAction : Action
     {
         if(controller.CheckIfCountDownElapsed(controller.monsterData.attackRateInTick))
         {
-            GameObject projectile = Instantiate(projectilePrefab, controller.eyes.position, Quaternion.identity);
-            Vector2 dirToTarget = (controller.chaseTarget.position - projectile.transform.position).normalized;
-            if(dirToTarget.x < 0) projectile.transform.localScale = new Vector2(Mathf.Sign(dirToTarget.x), 1f); 
-            projectile.GetComponent<Projectile>().direction = dirToTarget;
+            Vector2 dirToTarget = controller.chaseTarget.position - controller.eyes.position;
+            controller.eyes.right = dirToTarget;
+            GameObject projectile = Instantiate(projectilePrefab, controller.eyes.position, controller.eyes.rotation);
+            projectile.GetComponent<Projectile>().direction = new Vector2( Mathf.Abs( dirToTarget.normalized.x),0f);
             controller.ResetTimer();
         }
     }

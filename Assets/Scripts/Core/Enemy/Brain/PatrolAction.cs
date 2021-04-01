@@ -18,6 +18,7 @@ public class PatrolAction : Action
 
     public void Patrol(Enemy.EnemyController controller)
     {
+        controller.eyes.right = Vector2.right;
         RaycastHit2D groundInfo = Physics2D.Raycast(controller.eyes.position, controller.eyes.TransformDirection(new Vector2(1, angle)), DISTANCE_RAYCAST, layerHit);
         RaycastHit2D wallInfo = Physics2D.Raycast(controller.eyes.position, controller.eyes.TransformDirection(Vector2.right), DISTANCE_RAYCAST, layerHit);
         Debug.DrawRay(controller.eyes.position, controller.eyes.TransformDirection(new Vector2(1, angle)) * DISTANCE_RAYCAST, Color.red);

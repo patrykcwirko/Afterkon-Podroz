@@ -11,11 +11,11 @@ public class Dialog : ScriptableObject
     public class DialogStr
     {
         [SerializeField] public string name;
-        [SerializeField] public string text;
+        [TextArea(2,10)][SerializeField] public string text;
 
         public string GetName() { return name; }
         public string GetText() { return text; }
     }
 
-    public DialogStr[] dialog;
+    public List<DialogStr> dialog;
 }

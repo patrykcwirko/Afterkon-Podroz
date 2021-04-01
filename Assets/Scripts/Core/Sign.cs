@@ -32,7 +32,7 @@ public class Sign : MonoBehaviour, Iinteract
 
     public void Interact(Transform player)
     {
-        if(dialog.dialog.Length > _dialogIndex)
+        if(dialog.dialog.Count > _dialogIndex)
         {
             _dialogWindow.SetActive(true);
             _fixedJoint.enabled = true;

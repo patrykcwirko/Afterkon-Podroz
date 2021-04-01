@@ -48,15 +48,6 @@ namespace Enemy
             stateTimeElapsed = 0;
         }
 
-        private void OnDrawGizmos() 
-        {
-            if ( currentState != null && eyes != null )
-            {
-                Gizmos.color = currentState.sceneGizmoColor;
-                Gizmos.DrawSphere(eyes.position, monsterData.lookSphereCastRadius);
-            }
-        }
-
         private void TimeOnTick(object sender, TimeTickSystem.onTickEventArgs e)
         {
             stateTimeElapsed++;
