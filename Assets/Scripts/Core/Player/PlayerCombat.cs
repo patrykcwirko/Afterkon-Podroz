@@ -57,7 +57,7 @@ namespace Player
             if (context.phase != InputActionPhase.Started) return;
             transform.Find("Weapon").gameObject.SetActive(true);
             _anim.Play("longAttack");
-            sword.Attack(this);
+            sword.LongAttack(this);
         }
 
         IEnumerator HurtBlinker(float hurtTime)

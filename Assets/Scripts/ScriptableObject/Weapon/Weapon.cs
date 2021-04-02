@@ -11,4 +11,5 @@ public abstract class Weapon : ScriptableObject
 
     public abstract void Setup(Player.PlayerCombat player);
     public abstract void Attack(Player.PlayerCombat player);
+    public abstract void LongAttack(Player.PlayerCombat player);
 }
