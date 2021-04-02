@@ -10,12 +10,14 @@ public class Sword : Weapon
     public override void Attack(Player.PlayerCombat player)
     {
         var isEnemy = Physics2D.OverlapCircle(player.transform.Find("Weapon").position, 0.5f, enemyLayer);
+        player.transform.GetComponent<Animation>().Play("shortAttack");
 
         if (isEnemy) isEnemy.gameObject.GetComponent<Enemy.EnemyController>().Damage(damageAmount);
     }
     public override void LongAttack(Player.PlayerCombat player)
     {
         var isEnemy = Physics2D.OverlapCircle(player.transform.Find("Weapon").position, 0.5f, enemyLayer);
+        player.transform.GetComponent<Animation>().Play("longAttack");
 
         if (isEnemy) isEnemy.gameObject.GetComponent<Enemy.EnemyController>().Damage(damageAmount);
     }
