@@ -87,6 +87,13 @@ namespace Player
             } 
         }
 
+        public void OnPause(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Performed) return;
+            if (context.phase == InputActionPhase.Canceled) states.pausePush = false;
+            if (context.phase == InputActionPhase.Started) states.pausePush = true;
+        }
+
         public void OnWeaponSwitch(InputAction.CallbackContext context)
         {
             if (context.phase != InputActionPhase.Started) return;

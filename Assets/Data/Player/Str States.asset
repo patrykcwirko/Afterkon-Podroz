@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5532fc5b4859104ea2995384df647c1, type: 3}
+  m_Name: Str States
+  m_EditorClassIdentifier: 
+  isStompPushed: 0
+  isDashPushed: 0
+  isJumpPushed: 0
+  isGrounded: 0
+  isWall: 0
+  isObject: 0
+  canDoubleJump: 0
+  canStomp: 0
+  stomp: 0
+  isMoving: 0
+  interactable: 0
+  downPush: 0

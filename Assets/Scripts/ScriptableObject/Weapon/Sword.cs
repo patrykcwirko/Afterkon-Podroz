@@ -26,8 +26,11 @@ public class Sword : Weapon
     {
         var anim = player.transform.GetComponent<Animation>();
         player.transform.Find("Weapon").GetComponent<SpriteRenderer>().sprite = weaponSprite;
-        anim.RemoveClip("shortAttack");
-        anim.RemoveClip("longAttack");
+        if(anim.GetClipCount() > 0)
+        {
+            anim.RemoveClip("shortAttack");
+            anim.RemoveClip("longAttack");
+        }
         anim.AddClip(shortAttack, "shortAttack");
         anim.AddClip(longAttack, "longAttack");
     }

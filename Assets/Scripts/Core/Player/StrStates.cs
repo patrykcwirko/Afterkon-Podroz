@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
+using UnityEngine;
 
 namespace Player
 {
-    public struct StrStates
+    [CreateAssetMenu(menuName = "Player/States")]
+    public class StrStates : ScriptableObject
     {
         public bool isStompPushed;
         public bool isDashPushed;
@@ -17,6 +19,7 @@ namespace Player
         public bool isMoving;
         public bool interactable;
         public bool downPush;
+        public bool pausePush;
     }
 
 }
