@@ -55,6 +55,7 @@ namespace Player
 
         public void OnMove(InputAction.CallbackContext context)
         {
+            if (PauzeController.gameIsPaused) return;
             if (context.phase == InputActionPhase.Performed) return;
             else moveDirection = context.ReadValue<float>();
             if (context.phase == InputActionPhase.Canceled) states.isDashPushed = false;
@@ -75,12 +76,14 @@ namespace Player
         public void OnInteract(InputAction.CallbackContext context)
         {
             if (context.phase == InputActionPhase.Performed) return;
+            if (PauzeController.gameIsPaused) return;
             if (context.phase == InputActionPhase.Canceled) states.interactable = false;
             if (context.phase == InputActionPhase.Started) states.interactable = true;
         }
 
         public void OnHeal(InputAction.CallbackContext context)
         {
+            if (PauzeController.gameIsPaused) return;
             if (context.phase == InputActionPhase.Started)
             {
                 healPush = true;
@@ -97,6 +100,7 @@ namespace Player
         public void OnWeaponSwitch(InputAction.CallbackContext context)
         {
             if (context.phase != InputActionPhase.Started) return;
+            if (PauzeController.gameIsPaused) return;
             _gameController.SwitchWeapon();
         }
     }

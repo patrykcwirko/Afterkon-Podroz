@@ -8,6 +8,7 @@ public class PauzeController : MonoBehaviour
     public static bool gameIsPaused = false;
 
     public GameObject pauseUI;
+    public GameObject optionUI;
     public Player.StrStates playerInput;
 
     void Start()
@@ -41,7 +42,20 @@ public class PauzeController : MonoBehaviour
     public void Resume()
     {
         pauseUI.SetActive(false);
+        optionUI.SetActive(false);
         Time.timeScale = 1f;
         gameIsPaused = false;
+    }
+
+    public void ToOption()
+    {
+        pauseUI.SetActive(false);
+        optionUI.SetActive(true);
+    }
+
+    public void BackToMenu()
+    {
+        pauseUI.SetActive(true);
+        optionUI.SetActive(false);
     }
 }

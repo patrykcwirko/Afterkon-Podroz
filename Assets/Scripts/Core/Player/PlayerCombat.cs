@@ -46,6 +46,7 @@ namespace Player
 
         public void ShortAttack(InputAction.CallbackContext context)
         {
+            if (PauzeController.gameIsPaused) return;
             if (context.phase != InputActionPhase.Started) return;
             transform.Find("Weapon").gameObject.SetActive(true);
             sword.Attack(this);
@@ -53,6 +54,7 @@ namespace Player
         
         public void LongAttack(InputAction.CallbackContext context)
         {
+            if (PauzeController.gameIsPaused) return;
             if (context.phase != InputActionPhase.Started) return;
             transform.Find("Weapon").gameObject.SetActive(true);
             sword.LongAttack(this);

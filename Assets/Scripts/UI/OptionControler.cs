@@ -6,17 +6,20 @@ using UnityEngine.UI;
 public class OptionControler : MonoBehaviour
 {
     [SerializeField] Slider volumeSlider;
-    [SerializeField] float defaultVolume = 0.8f;
+    [SerializeField] Slider shakeSlider;
+    [SerializeField] OptionData current;
+    [SerializeField] OptionData defoult;
 
-    // Start is called before the first frame update
     void Start()
     {
-        volumeSlider.value = PlayerPrefController.GetMasterVolume();
+        volumeSlider.value = current.Volume;
+        shakeSlider.value = current.Shake;
     }
 
-    // Update is called once per frame
     void Update()
     {
+        current.Volume = volumeSlider.value;
+        current.Shake = shakeSlider.value;
         var musicPlayer = FindObjectOfType<AudioSource>();
         if (musicPlayer)
         {
@@ -28,14 +31,9 @@ public class OptionControler : MonoBehaviour
         }
     }
 
-    public void SaveAndExit()
-    {
-        PlayerPrefController.SetMasterVolume(volumeSlider.value);
-        FindObjectOfType<LevelLoader>().LoadStartScene();
-    }
-
     public void SetDefaults()
     {
-        volumeSlider.value = defaultVolume;
+        volumeSlider.value = defoult.Volume;
+        shakeSlider.value = defoult.Shake;
     }
 }

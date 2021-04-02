@@ -49,6 +49,7 @@ namespace Player
 
         public void Jump(InputAction.CallbackContext obj)
         {
+            if (PauzeController.gameIsPaused) return;
             if (obj.phase != InputActionPhase.Started) return;
             if (_playerInput.states.isGrounded || _playerInput.states.isObject)
             {
@@ -165,6 +166,7 @@ namespace Player
 
         public void Stomp(InputAction.CallbackContext obj)
         {
+            if (PauzeController.gameIsPaused) return;
             if (obj.phase != InputActionPhase.Started) return;
             _playerInput.states.downPush = true;
             if (!_playerInput.states.canStomp) return;

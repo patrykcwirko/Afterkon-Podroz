@@ -48,7 +48,7 @@ public class Shooter : MonoBehaviour
     {
         if (currentTime < shotRate) return;
         currentTime = 0;
-        GameObject projectile = Instantiate(arrowPref, shotPoint.position, Quaternion.identity);
+        GameObject projectile = Instantiate(arrowPref, shotPoint.position, shotPoint.rotation);
         projectile.GetComponent<Projectile>().direction = Vector2.right;
 
     }
