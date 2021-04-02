@@ -20,4 +20,4 @@ MonoBehaviour:
   monsterStats: {fileID: 11400000, guid: f0d671cfef97390469e9df296b6ceed0, type: 2}
   damageOnContact: 10
   lookSphereCastRadius: 0.2
-  attackRateInTick: 2
+  attackRateInTick: 10

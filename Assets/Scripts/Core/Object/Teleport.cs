@@ -14,6 +14,7 @@ public class Teleport : MonoBehaviour, Iinteract
     public void Interact(Transform player)
     {
         player.position = targetTeleport.transform.position;
+        player.GetComponent<Player.PlayerInput>().states.interactable = false;
     }
 
 }

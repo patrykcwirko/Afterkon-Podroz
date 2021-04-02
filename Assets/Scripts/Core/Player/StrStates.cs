@@ -16,7 +16,7 @@ namespace Player
         public bool stomp;
         public bool isMoving;
         public bool interactable;
-        internal bool downPush;
+        public bool downPush;
     }
 
 }

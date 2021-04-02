@@ -67,6 +67,7 @@ namespace Player
         {
             if (collision.gameObject.tag == "Destructible")
             {
+                Debug.Log(_playerInput.states.stomp);
                 if (_playerInput.states.stomp)
                 {
                     _playerInput.states.stomp = false;
@@ -79,9 +80,9 @@ namespace Player
                 if (_playerInput.states.stomp && _playerInput.states.canStomp)
                 {
                     StartCoroutine(jumping.stompShake.Shake());
-                    _playerInput.states.canStomp = false;
                     _playerInput.states.stomp = false;
                 }
+                _playerInput.states.canStomp = false;
             }
         }
 

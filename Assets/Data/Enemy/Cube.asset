@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a536622b76773344980b248e23a15b7, type: 3}
-  m_Name: Cube 1
+  m_Name: Cube
   m_EditorClassIdentifier: 
   monsterName: Cube
   monsterSprite: {fileID: 21300000, guid: 170577bce7cbda144b82578f81308d23, type: 3}

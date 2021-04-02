@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class CollectibleSystem : MonoBehaviour
 {
-    [SerializeField] private int maxColect = 10;
+    [SerializeField] private int maxColect = 5;
+    [SerializeField] private ActionEvent _actionEvent;
+    [SerializeField] private GameObject _actionObject;
 
     private int currentColect;
     private Image cImage;
@@ -35,5 +37,6 @@ public class CollectibleSystem : MonoBehaviour
         currentColect++;
         if (currentColect != 0) gameObject.SetActive(true);
         UpdateText();
+        if (currentColect == maxColect) _actionEvent.DoAction(_actionObject);
     }
 }
