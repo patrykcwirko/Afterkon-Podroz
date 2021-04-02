@@ -9,6 +9,7 @@ public class CameraShake : ScriptableObject
     [SerializeField] float duration;
     [Range(0.1f, 0.9f)]
     [SerializeField] float magnitude;
+    [SerializeField] OptionData data;
     public IEnumerator Shake()
     {
         Vector3 originalPos = FindObjectOfType<Camera>().transform.position;
@@ -17,8 +18,8 @@ public class CameraShake : ScriptableObject
 
         while (elapsed < duration)
         {
-            float x = Random.Range(-1f, 1f) * magnitude;
-            float y = Random.Range(-1f, 1f) * magnitude;
+            float x = Random.Range(-1f, 1f) * magnitude * data.Shake;
+            float y = Random.Range(-1f, 1f) * magnitude * data.Shake;
 
             Camera.main.transform.position += new Vector3(x, y, 0);
 
