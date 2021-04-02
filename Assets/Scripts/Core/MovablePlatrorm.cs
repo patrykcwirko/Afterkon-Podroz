@@ -5,7 +5,8 @@ using UnityEngine;
 public class MovablePlatrorm : MonoBehaviour
 {
     public float speed = 1;
-    public LayerMask mask;
+    public bool rightStart;
+    public LayerMask maskGround;
 
     private const float CHECK_RADIUS = 0.1f;
 
@@ -15,7 +16,8 @@ public class MovablePlatrorm : MonoBehaviour
 
     void Start()
     {
-        _directionMove = Vector3.right;
+        if(rightStart) _directionMove = Vector3.right;
+        else _directionMove = Vector3.left;
         _raycastPointLeft = transform.Find("WallCheckLeft");
         _raycastPointRight = transform.Find("WallCheckRight");
     }
@@ -23,8 +25,8 @@ public class MovablePlatrorm : MonoBehaviour
     void Update()
     {
         transform.Translate(_directionMove * speed);
-        bool wallCheckLeft = Physics2D.OverlapCircle(_raycastPointLeft.position, CHECK_RADIUS, mask);
-        bool wallCheckRight = Physics2D.OverlapCircle(_raycastPointRight.position, CHECK_RADIUS, mask);
+        bool wallCheckLeft = Physics2D.OverlapCircle(_raycastPointLeft.position, CHECK_RADIUS, maskGround);
+        bool wallCheckRight = Physics2D.OverlapCircle(_raycastPointRight.position, CHECK_RADIUS, maskGround);
         if(wallCheckLeft)
         {
             _directionMove = Vector3.right;

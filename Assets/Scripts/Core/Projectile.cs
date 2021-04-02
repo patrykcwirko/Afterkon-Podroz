@@ -7,12 +7,13 @@ public class Projectile : MonoBehaviour
     [SerializeField] float speed = 1f;
     [SerializeField] public float damage = 25f;
     [SerializeField] LayerMask targetLayer;
+    [SerializeField] bool isRigit;
 
     [HideInInspector] public Vector2 direction;
 
     void Update()
     {
-        transform.Translate(direction * Time.deltaTime * speed);
+        if(!isRigit) transform.Translate(direction * Time.deltaTime * speed);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
