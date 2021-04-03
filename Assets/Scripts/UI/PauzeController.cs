@@ -58,4 +58,9 @@ public class PauzeController : MonoBehaviour
         pauseUI.SetActive(true);
         optionUI.SetActive(false);
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }

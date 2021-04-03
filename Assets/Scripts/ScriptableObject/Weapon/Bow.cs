@@ -28,7 +28,8 @@ public class Bow : Weapon
         if (currentTime < attackSpeed) return;
         currentTime = 0;
         player.transform.GetComponent<Animation>().Play("longAttack");
-        player.transform.Find("Weapon").right = new Vector2(1,-1);
+        Debug.Log(new Vector2(1, -1 * player.transform.localScale.x));
+        player.transform.Find("Weapon").right = new Vector2(1,1 * player.transform.localScale.x);
         GameObject projectile = Instantiate(arrowPrefab, player.transform.Find("Weapon").position, player.transform.Find("Weapon").rotation);
         player.transform.Find("Weapon").right = Vector2.right;
         Vector2 dirToTarget = new Vector2(player.transform.localScale.x, 0f);
