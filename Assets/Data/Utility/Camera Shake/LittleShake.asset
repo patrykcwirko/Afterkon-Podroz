@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duration: 0.1
   magnitude: 0.162
+  data: {fileID: 11400000, guid: 175edaa0d89a9644196cc90c2148a31b, type: 2}

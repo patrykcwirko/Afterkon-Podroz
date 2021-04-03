@@ -8,6 +8,7 @@ public class HeartsHealthVisual : MonoBehaviour
 {
     [SerializeField] GameObject heartObject;
     [SerializeField] AnimationClip heartFullAnimationClip;
+    [SerializeField] PlayerInfo info;
 
     public event EventHandler onDeath;
 
@@ -25,9 +26,10 @@ public class HeartsHealthVisual : MonoBehaviour
     {
         HeartsHealthSystem newHeartsHealthSystem = new HeartsHealthSystem(5);
         SetHeartsHealthSystem(newHeartsHealthSystem);
+        heartsHealthSystem.SetHealth(info);
 
-        heartsHealthSystem.Damage(40f);
-        heartsHealthSystem.Heal(40f);
+        heartsHealthSystem.Damage(10f);
+        heartsHealthSystem.Heal(10f);
     }
 
     public HeartsHealthSystem GetHeartSystem()
@@ -108,6 +110,7 @@ public class HeartsHealthVisual : MonoBehaviour
         GameObject heartGameObject = Instantiate(heartObject);
         heartGameObject.transform.parent = transform;
         heartGameObject.transform.localPosition = Vector3.zero;
+        heartGameObject.transform.localScale = Vector3.one;
         heartGameObject.AddComponent<Animation>();
         heartGameObject.GetComponent<Animation>().AddClip(heartFullAnimationClip, "HeartFull");
         heartGameObject.GetComponent<RectTransform>().anchoredPosition = anchoredPosition;

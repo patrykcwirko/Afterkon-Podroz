@@ -11,6 +11,8 @@ public class ChIIIBoss : MonoBehaviour
     [SerializeField] Activator activator;
     [SerializeField] float bossTime;
     [SerializeField] float spawnRate;
+    [SerializeField] ActionEvent actionEvent;
+    [SerializeField] GameObject actionObject;
 
     private HeartsHealthVisual healthVisual;
     private Slider slider;
@@ -56,8 +58,17 @@ public class ChIIIBoss : MonoBehaviour
                 currentTime = 0;
                 float randomPos = Random.Range(leftCorner.position.x, rightCorner.position.x);
                 GameObject projectile = Instantiate(projectilePref, new Vector2(randomPos, leftCorner.position.y), Quaternion.identity);
-                projectile.transform.parent = spawnAttack.transform;
+                projectile.transform.parent = leftCorner.transform;
             }
+        }
+        else
+        {
+            foreach (Transform item in leftCorner.transform)
+            {
+                Destroy(item.gameObject);
+            }
+            timeSlider.SetActive(false);
+            actionEvent.DoAction(actionObject);
         }
     }
 }

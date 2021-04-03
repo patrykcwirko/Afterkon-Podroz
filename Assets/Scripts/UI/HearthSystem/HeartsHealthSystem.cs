@@ -12,7 +12,8 @@ public class HeartsHealthSystem
     public const float MAX_HEARTH_VALUE = 1f;
     public const float HP_PER_HEART = 20f; 
     private List<Heart> heartList;
-
+    private PlayerInfo info;
+    private bool isSetting;
 
     public HeartsHealthSystem(int heartAmount)
     {
@@ -29,8 +30,26 @@ public class HeartsHealthSystem
         return heartList;
     }
 
+    public void SetHealth(PlayerInfo amount)
+    {
+        if (!info) info = amount;
+        if (heartList.Count * HP_PER_HEART == info.health) return;
+        if(heartList.Count*HP_PER_HEART < info.health)
+        {
+            isSetting = true;
+            Heal(info.health - heartList.Count*HP_PER_HEART);
+        }
+        else
+        {
+            isSetting = true;
+            Damage(heartList.Count*HP_PER_HEART - info.health);
+        }
+        isSetting = false;
+    }
+
     public void Damage(float damageAmount)
     {
+        if(!isSetting) info.health -= damageAmount;
         float damage = damageAmount / HP_PER_HEART;
         for (int i = heartList.Count -1; i >= 0; i--)
         {
@@ -54,6 +73,7 @@ public class HeartsHealthSystem
 
     public void Heal(float healAmount)
     {
+        if (!isSetting) info.health += healAmount;
         float heal = healAmount / HP_PER_HEART;
         for (int i = 0; i < heartList.Count; i++)
         {

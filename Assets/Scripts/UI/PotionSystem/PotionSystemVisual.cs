@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class PotionSystemVisual : MonoBehaviour
 {
     [SerializeField] private Sprite potionSprite;
+    [SerializeField] private PlayerInfo info;
 
     List<GameObject> potionList;
 
@@ -14,6 +15,11 @@ public class PotionSystemVisual : MonoBehaviour
 
     private void Awake() {
         potionList = new List<GameObject>();
+        for (int i = 0; i < info.potionCount; i++)
+        {
+            var offset = potionList.Count * OFFSET_POTION;
+            CreatePotionImage(new Vector2(offset, 0));
+        }
     }
 
     private GameObject CreatePotionImage(Vector2 anchoredPosition)
@@ -22,6 +28,7 @@ public class PotionSystemVisual : MonoBehaviour
         potionGameObject.transform.parent = transform;
         potionGameObject.GetComponent<Image>().sprite = potionSprite;
         potionGameObject.transform.localPosition = Vector3.zero;
+        potionGameObject.transform.localScale = Vector3.one;
 
         potionGameObject.GetComponent<RectTransform>().anchoredPosition = anchoredPosition;
         potionGameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(80,80);
@@ -33,6 +40,7 @@ public class PotionSystemVisual : MonoBehaviour
     public void UsePotion()
     {
         GameObject potion = potionList[potionList.Count -1];
+        info.potionCount--;
         potionList.Remove(potion);
         Destroy(potion);
     }
@@ -40,6 +48,7 @@ public class PotionSystemVisual : MonoBehaviour
     public void AddPotion()
     {
         var offset = potionList.Count * OFFSET_POTION;
+        info.potionCount++;
         CreatePotionImage(new Vector2(offset,0));
     }
 
