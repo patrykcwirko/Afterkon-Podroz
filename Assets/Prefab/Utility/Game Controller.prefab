@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2250286781837709782
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2250286781837709776}
+  - component: {fileID: 2250286781837709777}
+  - component: {fileID: 2250286781837709779}
+  m_Layer: 0
+  m_Name: Game Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2250286781837709776
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2250286781837709782}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.2326381, y: -1.1698836, z: -12.991635}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2250286781837709777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2250286781837709782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a70e925d2f1fd4c4fa9cd5abe5b23310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doubleJumpEvable: 1
+  stompEnable: 1
+  dashEnable: 1
+  gameCamera:
+    playerTrasform: {fileID: 0}
+    cameraFollow: {fileID: 0}
+    offset: {x: 0, y: 2, z: 0}
+  currentCheckPoint: {fileID: 0}
+  weapons:
+  - {fileID: 11400000, guid: 151704c7606af7549862e39e3d70d4ed, type: 2}
+  - {fileID: 11400000, guid: cd00b665877fa6446a0012ad9bc2da4e, type: 2}
+  weaponIndex: 0
+--- !u!114 &2250286781837709779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2250286781837709782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 500e9cad63926864d9cffd7dc03e46c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnAttack: {fileID: 0}
+  timeSlider: {fileID: 0}
+  projectilePref: {fileID: 8043179132524211630, guid: 6a63dd6860448e54ba476395d68e596e,
+    type: 3}
+  activator: {fileID: 0}
+  bossTime: 10
+  spawnRate: 0.4
+  actionEvent: {fileID: 11400000, guid: 170fb6708db33d04f93e9555c074abe0, type: 2}
+  actionObject: {fileID: 0}
