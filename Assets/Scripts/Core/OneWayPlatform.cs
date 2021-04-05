@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class OneWayPlatform : MonoBehaviour
 {
-    public Transform player;
     public float timeToChange = 0.05f;
 
+    private Transform player;
     private PlatformEffector2D effector2D;
     private Player.PlayerInput _playerInput;
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         effector2D = GetComponent<PlatformEffector2D>();
         _playerInput = player.GetComponent<Player.PlayerInput>();
     }

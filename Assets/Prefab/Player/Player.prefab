@@ -183,7 +183,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2179936303640484224}
   - component: {fileID: 3589831035211446236}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -198,7 +198,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3402963882399979207}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.396, y: -0.14, z: 0}
+  m_LocalPosition: {x: 0.482, y: -0.097, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4224980683059647783}
@@ -243,7 +243,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 20
-  m_Sprite: {fileID: 21300000, guid: 57abcdfef975f6d418bc952270a8bb8b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 620308b32c873144c92604842801c50d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -287,7 +287,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4224980683059647782}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.36, y: -3.14, z: 0}
+  m_LocalPosition: {x: -2.2102518, y: -2.3162584, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: -2643742882375989164}
@@ -382,7 +382,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 3
+  m_GravityScale: 4
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -520,6 +520,51 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 8a6561e7-f047-4143-84cf-262d1abc2466
     m_ActionName: Player/ShortAttack[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 354014846372951947}
+        m_MethodName: LongAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ecbd0e6a-e488-4953-a5c2-883b27f14fdf
+    m_ActionName: Player/LongAttack[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1530370327}
+        m_MethodName: OnWeaponSwitch
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9a1d763b-e5e0-49a7-85cd-5fa4401369a3
+    m_ActionName: Player/SwitchWeapon[/Keyboard/tab]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1530370327}
+        m_MethodName: OnPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: eba1cbac-31e2-41ea-8806-216d873bfdb7
+    m_ActionName: Player/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -555,6 +600,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveDirection: 0
   dashDirection: 0
+  states: {fileID: 11400000, guid: 45885589fb40cf849a8a98c61da151a7, type: 2}
   pushPullDistance: 0.3
   layerInteractive:
     serializedVersion: 2
@@ -572,6 +618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98fbdc2c4764cd44da3c7fbbf0a281fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sword: {fileID: 0}
   hearts: {fileID: 0}
   potionSystem: {fileID: 0}
   invisibilityAfterHurt: 2

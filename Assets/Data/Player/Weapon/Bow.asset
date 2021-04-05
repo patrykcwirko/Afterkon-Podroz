@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageAmount: 10
   weaponSprite: {fileID: 21300000, guid: 620308b32c873144c92604842801c50d, type: 3}
-  shortAttack: {fileID: 7400000, guid: c95c8d34f76a57b4a81b76c20da46140, type: 2}
+  shortAttack: {fileID: 7400000, guid: 52c9a157fab37e449ad48d51a5753dce, type: 2}
   longAttack: {fileID: 7400000, guid: c95c8d34f76a57b4a81b76c20da46140, type: 2}
   arrowPrefab: {fileID: 7403382949168263903, guid: 4d1f10a7dc505c642a5fe2696ceefbc5,
     type: 3}

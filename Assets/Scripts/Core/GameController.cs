@@ -8,17 +8,16 @@ public class GameController : MonoBehaviour
     [Serializable]
     public class GameCamera 
     { 
-        public Transform playerTrasform;
         public CameraFollow cameraFollow;
         public Vector3 offset;
     }
 
-
+    [SerializeField] private GameObject playerPrefab;
     [SerializeField] public bool doubleJumpEvable;
     [SerializeField] public bool stompEnable;
     [SerializeField] public bool dashEnable;
-    [SerializeField] GameCamera gameCamera;
-    [SerializeField] Transform currentCheckPoint;
+    [SerializeField] private GameCamera gameCamera;
+    [SerializeField] private Transform currentCheckPoint;
     [SerializeField] public Weapon[] weapons;
 
     [HideInInspector] public int weaponIndex = 0;
@@ -27,10 +26,11 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
+        GameObject player = Instantiate(playerPrefab, currentCheckPoint.position, currentCheckPoint.rotation);
         healthVisual = FindObjectOfType<HeartsHealthVisual>();
         potionSystem = FindObjectOfType<PotionSystemVisual>();
         FindObjectOfType<Player.PlayerCombat>().sword = weapons[weaponIndex];
-        gameCamera.cameraFollow.Setup(() => gameCamera.playerTrasform.position + gameCamera.offset);
+        gameCamera.cameraFollow.Setup(() => player.transform.position + gameCamera.offset);
         healthVisual.onDeath += Game_OnDeath;
     }
 

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauzeController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PauzeController : MonoBehaviour
 
     public GameObject pauseUI;
     public GameObject optionUI;
+    public GameObject newCharacterUI;
     public Player.StrStates playerInput;
 
     void Start()
@@ -18,6 +20,7 @@ public class PauzeController : MonoBehaviour
 
     void Update()
     {
+        if (!playerInput) return;
         if(playerInput.pausePush)
         {            
             if(gameIsPaused)
@@ -57,10 +60,23 @@ public class PauzeController : MonoBehaviour
     {
         pauseUI.SetActive(true);
         optionUI.SetActive(false);
+        newCharacterUI.SetActive(false);
     }
 
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public void NewGame()
+    {
+        pauseUI.SetActive(false);
+        optionUI.SetActive(false);
+        newCharacterUI.SetActive(true);
+    }
+
+    public void Continue()
+    {
+
     }
 }

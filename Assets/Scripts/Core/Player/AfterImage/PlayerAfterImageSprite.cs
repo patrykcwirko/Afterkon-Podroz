@@ -15,7 +15,7 @@ public class PlayerAfterImageSprite : MonoBehaviour
     private SpriteRenderer playerSR;
     private Color color;
 
-    private void OnEnable() 
+    private void Start() 
     {
         SR = GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
