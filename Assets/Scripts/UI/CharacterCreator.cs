@@ -11,6 +11,23 @@ public class CharacterCreator : MonoBehaviour
     [SerializeField] private TMPro.TMP_InputField input;
     [SerializeField] private PlayerInfo currentInfo;
     [SerializeField] private PlayerInfo defounltInfo;
+    [SerializeField] private CharacterColor startColor;
+    [SerializeField] private CharacterColor currentColor;
+    [SerializeField] private CharacterPainter painter;
+    
+    private CharacterColor.BodyPart partIndex;
+
+    private void Start()
+    {
+        painter.SetColor(startColor);
+        currentColor.SetColor(startColor);
+    }
+
+    private void Update()
+    {
+        currentColor.SetColorPart(partIndex, colorPicker.color);
+        painter.SetColor(currentColor);
+    }
 
     public void RandomColor()
     {
@@ -37,5 +54,11 @@ public class CharacterCreator : MonoBehaviour
         currentInfo.potionCount = defounltInfo.potionCount;
         currentInfo.name = input.text;
         SceneManager.LoadScene(1);
+    }
+
+    public void ChoosePart(int index)
+    {
+        partIndex = (CharacterColor.BodyPart)index;
+        colorPicker.color = currentColor.GetColorPart(partIndex);
     }
 }
