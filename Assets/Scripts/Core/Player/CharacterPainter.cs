@@ -7,30 +7,36 @@ public class CharacterPainter : MonoBehaviour
 {
     [SerializeField] private bool isSprite;
 
-    private GameObject hair;
-    private GameObject eyes;
-    private GameObject skin;
-    private GameObject torso;
-    private GameObject arms;
-    private GameObject legs;
-    private GameObject foots;
+    [SerializeField] private Transform hair;
+    [SerializeField] private Transform eyes;
+    [SerializeField] private Transform skin;
+    [SerializeField] private Transform torso;
+    [SerializeField] private Transform arms;
+    [SerializeField] private Transform legs;
+    [SerializeField] private Transform foots;
 
     void Start()
     {
-        hair = transform.Find("Hair").gameObject;
-        eyes = transform.Find("Eyes").gameObject;
-        skin = transform.Find("Skin").gameObject;
-        torso = transform.Find("Torso").gameObject;
-        arms = transform.Find("Arms").gameObject;
-        legs = transform.Find("Legs").gameObject;
-        foots = transform.Find("Foots").gameObject;
+        hair = transform.Find("Hair");
+        eyes = transform.Find("Eyes");
+        skin = transform.Find("Skin");
+        torso = transform.Find("Torso");
+        arms = transform.Find("Arms");
+        legs = transform.Find("Legs");
+        foots = transform.Find("Foots");
     }
 
     public void SetColor(CharacterColor characterColor)
     {
         if(isSprite)
         {
-
+            hair.GetComponent<SpriteRenderer>().color = characterColor.hair;
+            eyes.GetComponent<SpriteRenderer>().color = characterColor.eyes;
+            skin.GetComponent<SpriteRenderer>().color = characterColor.skin;
+            torso.GetComponent<SpriteRenderer>().color = characterColor.torso;
+            arms.GetComponent<SpriteRenderer>().color = characterColor.arms;
+            legs.GetComponent<SpriteRenderer>().color = characterColor.legs;
+            foots.GetComponent<SpriteRenderer>().color = characterColor.foots;
         }
         else
         {

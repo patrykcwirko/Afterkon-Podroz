@@ -15,7 +15,8 @@ public class CharacterColor : ScriptableObject
         torso,
         arms,
         legs,
-        foots
+        foots, 
+        nothing
     }
 
     public Color hair;

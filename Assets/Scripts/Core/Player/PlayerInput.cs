@@ -10,6 +10,7 @@ namespace Player
         public StrStates states;
         public float pushPullDistance = 0.3f;
         public LayerMask layerInteractive;
+        [SerializeField] private CharacterColor currentColor;
 
         [HideInInspector] public bool healPush;
         private const float DOUBLE_CLICK_TIME = .2f;
@@ -17,15 +18,24 @@ namespace Player
         private float _lastClickTime;
         private GameController _gameController;
         private GameObject _interactObject;
+        private CharacterPainter painter;
 
         private void Start() 
         {
+            painter = transform.Find("Body").GetComponent<CharacterPainter>();
+            SetColor();
             _gameController = FindObjectOfType<GameController>();
         }
 
         private void Update()
         {
             CheckInteractInRange();
+        }
+
+        [ContextMenu("SetColor")]
+        public void SetColor()
+        {
+            painter.SetColor(currentColor);
         }
 
         private void CheckInteractInRange()

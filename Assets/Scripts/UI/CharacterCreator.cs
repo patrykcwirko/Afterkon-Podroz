@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class CharacterCreator : MonoBehaviour
 {
     [SerializeField] private FlexibleColorPicker colorPicker;
-    [SerializeField] private Color color;
     [SerializeField] private TMPro.TMP_InputField input;
     [SerializeField] private PlayerInfo currentInfo;
     [SerializeField] private PlayerInfo defounltInfo;
@@ -25,8 +24,11 @@ public class CharacterCreator : MonoBehaviour
 
     private void Update()
     {
-        currentColor.SetColorPart(partIndex, colorPicker.color);
-        painter.SetColor(currentColor);
+        if (partIndex != CharacterColor.BodyPart.nothing)
+        {
+            currentColor.SetColorPart(partIndex, colorPicker.color);
+            painter.SetColor(currentColor);
+        }
     }
 
     public void RandomColor()
@@ -35,7 +37,7 @@ public class CharacterCreator : MonoBehaviour
         float RandomG = Random.Range(0f,1f);
         float RandomB = Random.Range(0f,1f);
         Debug.Log($"R: {RandomR}, G: {RandomG}, B: {RandomB}");
-        color = new Color(RandomR, RandomG, RandomB);
+        var color = new Color(RandomR, RandomG, RandomB);
         colorPicker.color = color;
     }
 

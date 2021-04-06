@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79d2aba8bdd19724fbdbaf746af29571, type: 3}
   m_Name: StartColor
   m_EditorClassIdentifier: 
-  hair: {r: 0, g: 0, b: 0, a: 0}
-  eyes: {r: 0, g: 0, b: 0, a: 0}
-  skin: {r: 0, g: 0, b: 0, a: 0}
-  torso: {r: 0, g: 0, b: 0, a: 0}
-  arms: {r: 0, g: 0, b: 0, a: 0}
-  legs: {r: 0, g: 0, b: 0, a: 0}
-  foots: {r: 0, g: 0, b: 0, a: 0}
+  hair: {r: 0, g: 0, b: 0, a: 1}
+  eyes: {r: 0, g: 0, b: 0, a: 1}
+  skin: {r: 0.9811321, g: 0.70713514, b: 0.32858673, a: 1}
+  torso: {r: 1, g: 0.995283, b: 0.995283, a: 1}
+  arms: {r: 1, g: 0, b: 0, a: 1}
+  legs: {r: 0.23113209, g: 0.29008865, b: 1, a: 1}
+  foots: {r: 1, g: 1, b: 1, a: 1}

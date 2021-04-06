@@ -22,6 +22,8 @@ namespace Player
             _playerInput = GetComponent<PlayerInput>();
             _animator = GetComponent<Animator>();
             _anim = GetComponent<Animation>();
+            hearts = FindObjectOfType<HeartsHealthVisual>();
+            potionSystem = FindObjectOfType<PotionSystemVisual>();
             sword.Setup(this);
             _anim.AddClip(sword.shortAttack, "shortAttack");
             _anim.AddClip(sword.longAttack, "longAttack");

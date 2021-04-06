@@ -27,6 +27,7 @@ public class GameController : MonoBehaviour
     void Awake()
     {
         GameObject player = Instantiate(playerPrefab, currentCheckPoint.position, currentCheckPoint.rotation);
+        player.GetComponent<Player.PlayerCombat>().sword = weapons[0];
         healthVisual = FindObjectOfType<HeartsHealthVisual>();
         potionSystem = FindObjectOfType<PotionSystemVisual>();
         FindObjectOfType<Player.PlayerCombat>().sword = weapons[weaponIndex];
