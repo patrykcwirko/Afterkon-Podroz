@@ -33,7 +33,6 @@ namespace Player
         {
             if (_playerInput.healPush)
             {
-                Debug.Log("Heal");
                 potionSystem.UsePotion();
                 hearts.GetHeartSystem().Heal(20);
                 _playerInput.healPush = false;

@@ -6,7 +6,6 @@ public class CheckPoint : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("CheckPoint");
         if (other.gameObject.tag == "Player")
         {
             var gameControler = FindObjectOfType<GameController>();

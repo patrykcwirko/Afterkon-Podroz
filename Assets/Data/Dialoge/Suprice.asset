@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Suprice
   m_EditorClassIdentifier: 
   dialog:
-  - name: Sign
-    text: "M\xF3wi\u0142em za tob\u0105? Mia\u0142em na my\u015Bli pod tob\u0105.
+  - side: 0
+    sprite: {fileID: 11400000, guid: 87a6d7c759b444b4bafcf6610da4975f, type: 2}
+    name: Przecinek
+    text: "M\xF3wi\u0142em <name> za tob\u0105? Mia\u0142em na my\u015Bli pod tob\u0105.
       Ups..."

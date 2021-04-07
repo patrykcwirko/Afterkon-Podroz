@@ -36,7 +36,6 @@ public class CharacterCreator : MonoBehaviour
         float RandomR = Random.Range(0f,1f);
         float RandomG = Random.Range(0f,1f);
         float RandomB = Random.Range(0f,1f);
-        Debug.Log($"R: {RandomR}, G: {RandomG}, B: {RandomB}");
         var color = new Color(RandomR, RandomG, RandomB);
         colorPicker.color = color;
     }

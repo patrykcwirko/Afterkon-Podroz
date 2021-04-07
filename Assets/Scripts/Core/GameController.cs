@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameCamera gameCamera;
     [SerializeField] private Transform currentCheckPoint;
     [SerializeField] public Weapon[] weapons;
+    [SerializeField] private bool testing;
 
     [HideInInspector] public int weaponIndex = 0;
     private HeartsHealthVisual healthVisual;
@@ -26,12 +27,20 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
-        GameObject player = Instantiate(playerPrefab, currentCheckPoint.position, currentCheckPoint.rotation);
-        player.GetComponent<Player.PlayerCombat>().sword = weapons[0];
+        if(!testing)
+        {
+            GameObject player = Instantiate(playerPrefab, currentCheckPoint.position, currentCheckPoint.rotation);
+            player.GetComponent<Player.PlayerCombat>().sword = weapons[0];
+            gameCamera.cameraFollow.Setup(() => player.transform.position + gameCamera.offset);
+        }
+        else
+        {
+            GameObject player = FindObjectOfType<Player.PlayerCombat>().gameObject;
+            gameCamera.cameraFollow.Setup(() => player.transform.position + gameCamera.offset);
+        }
         healthVisual = FindObjectOfType<HeartsHealthVisual>();
         potionSystem = FindObjectOfType<PotionSystemVisual>();
         FindObjectOfType<Player.PlayerCombat>().sword = weapons[weaponIndex];
-        gameCamera.cameraFollow.Setup(() => player.transform.position + gameCamera.offset);
         healthVisual.onDeath += Game_OnDeath;
     }
 

@@ -68,7 +68,6 @@ namespace Player
         {
             if (collision.gameObject.tag == "Destructible")
             {
-                Debug.Log(_playerInput.states.stomp);
                 if (_playerInput.states.stomp)
                 {
                     _playerInput.states.stomp = false;
