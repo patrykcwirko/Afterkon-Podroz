@@ -13,6 +13,6 @@ public class Activator : MonoBehaviour
     public event EventHandler<onActiveEventArgs> onTriger;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        onTriger?.Invoke(this, new onActiveEventArgs { collision = collision});
+        if(collision.tag == "Player") onTriger?.Invoke(this, new onActiveEventArgs { collision = collision});
     }
 }

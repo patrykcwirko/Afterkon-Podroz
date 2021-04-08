@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90550eb759b1dfe44b0c58595b64a676, type: 3}
   m_Name: Player Info
   m_EditorClassIdentifier: 
-  health: 50
-  potionCount: 4
+  name: Patryk
+  health: 90
+  potionCount: 3

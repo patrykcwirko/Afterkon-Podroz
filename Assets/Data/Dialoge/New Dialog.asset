@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: New Dialog
   m_EditorClassIdentifier: 
   dialog:
-  - name: 
-    text: "NIe id\u017A w t\u0119 storn\u0119!!"
+  - side: 0
+    sprite: {fileID: 0}
+    name: Znak
+    text: "Nie id\u017A w t\u0119 storn\u0119!!"

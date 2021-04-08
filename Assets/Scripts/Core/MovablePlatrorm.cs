@@ -7,31 +7,53 @@ public class MovablePlatrorm : MonoBehaviour
     public float speed = 1;
     public bool rightStart;
     public LayerMask maskGround;
+    public bool isMovingToPoint;
+    public Transform[] points;
+    public bool isWaitingInPoint;
+    public float waitTime;
 
     private const float CHECK_RADIUS = 0.1f;
 
     private Transform _raycastPointLeft;
     private Transform _raycastPointRight;
     private Vector3 _directionMove;
+    private int positionIndex;
 
     void Start()
     {
-        if(rightStart) _directionMove = Vector3.right;
-        else _directionMove = Vector3.left;
-        _raycastPointLeft = transform.Find("WallCheckLeft");
-        _raycastPointRight = transform.Find("WallCheckRight");
+        if(!isMovingToPoint)
+        {
+            if(rightStart) _directionMove = Vector3.right;
+            else _directionMove = Vector3.left;
+            _raycastPointLeft = transform.Find("WallCheckLeft");
+            _raycastPointRight = transform.Find("WallCheckRight");
+            return;
+        }
+        positionIndex = 0;
+        _directionMove = (points[0].position - transform.position).normalized;
     }
 
     void Update()
     {
-        transform.Translate(_directionMove * speed);
+        if(isMovingToPoint)
+        {
+            if(transform.position == points[positionIndex].position)
+            {
+                if(isWaitingInPoint) StartCoroutine(Wait(waitTime));
+                positionIndex++;
+                if (positionIndex >= points.Length) positionIndex = 0;
+            }
+            transform.position = Vector3.MoveTowards(transform.position, points[positionIndex].position, speed*Time.deltaTime);
+            return;
+        }
+        transform.Translate(_directionMove * speed * Time.deltaTime);
         bool wallCheckLeft = Physics2D.OverlapCircle(_raycastPointLeft.position, CHECK_RADIUS, maskGround);
         bool wallCheckRight = Physics2D.OverlapCircle(_raycastPointRight.position, CHECK_RADIUS, maskGround);
-        if(wallCheckLeft)
+        if (wallCheckLeft)
         {
             _directionMove = Vector3.right;
         }
-        if(wallCheckRight)
+        if (wallCheckRight)
         {
             _directionMove = Vector3.left;
         }
@@ -51,5 +73,9 @@ public class MovablePlatrorm : MonoBehaviour
         {
             other.collider.transform.SetParent(null);
         }
+    }
+    private IEnumerator Wait(float time)
+    {
+        yield return new WaitForSeconds(time);
     }
 }

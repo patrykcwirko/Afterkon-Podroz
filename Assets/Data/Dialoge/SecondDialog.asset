@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: SecondDialog
   m_EditorClassIdentifier: 
   dialog:
-  - name: Dign
+  - side: 0
+    sprite: {fileID: 0}
+    name: Znak
     text: "A ci\u0119 ostrzega\u0142em, a teraz. ZA TOB\u0104!!"
