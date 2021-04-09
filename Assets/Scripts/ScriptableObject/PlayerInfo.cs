@@ -8,4 +8,5 @@ public class PlayerInfo : ScriptableObject
     public string name;
     public float health = 100;
     public int potionCount = 0;
+    [HideInInspector] public int currentMapIndex = 0;
 }

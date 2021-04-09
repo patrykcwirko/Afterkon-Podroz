@@ -626,7 +626,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseUI: {fileID: 1996579023}
   optionUI: {fileID: 1141069829}
+  optionButton: {fileID: 7331513467878912477}
+  continueButton: {fileID: 361122380}
+  quitButton: {fileID: 7331513468576013499}
   newCharacterUI: {fileID: 1700288207}
+  info: {fileID: 11400000, guid: 7b567668ac53fba42a4f6cb210e8e6a6, type: 2}
   playerInput: {fileID: 0}
 --- !u!1 &154207155
 GameObject:
@@ -1252,8 +1256,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: ToOption
+      - m_Target: {fileID: 120993235}
+        m_MethodName: Continue
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1522,8 +1526,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278419185
-  m_fontColor: {r: 0.9433962, g: 0.49252948, b: 0.013349922, a: 1}
+    rgba: 4278342835
+  m_fontColor: {r: 0.70199996, g: 0.32759997, b: 0.008258822, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauzeController : MonoBehaviour
 {
@@ -10,12 +11,22 @@ public class PauzeController : MonoBehaviour
 
     public GameObject pauseUI;
     public GameObject optionUI;
+    public GameObject optionButton;
+    public GameObject continueButton;
+    public GameObject quitButton;
     public GameObject newCharacterUI;
+    public PlayerInfo info;
     public Player.StrStates playerInput;
 
     void Start()
     {
-        
+        if (continueButton == null) return;
+        if (info.currentMapIndex == 0)
+        {
+            continueButton.gameObject.SetActive(false);
+            quitButton.transform.position = optionButton.transform.position;
+            optionButton.transform.position = continueButton.transform.position;
+        }
     }
 
     void Update()
@@ -77,6 +88,6 @@ public class PauzeController : MonoBehaviour
 
     public void Continue()
     {
-
+        SceneManager.LoadScene(info.currentMapIndex);
     }
 }
