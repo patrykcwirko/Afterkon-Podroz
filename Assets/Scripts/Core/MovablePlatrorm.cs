@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class MovablePlatrorm : MonoBehaviour
 {
+    [Header("Basic")]
     public float speed = 1;
     public bool rightStart;
     public LayerMask maskGround;
+    [Header("Point To Point")]
     public bool isMovingToPoint;
     public Transform[] points;
     public bool isWaitingInPoint;
@@ -21,7 +23,7 @@ public class MovablePlatrorm : MonoBehaviour
 
     void Start()
     {
-        if(!isMovingToPoint)
+        if (!isMovingToPoint)
         {
             if(rightStart) _directionMove = Vector3.right;
             else _directionMove = Vector3.left;

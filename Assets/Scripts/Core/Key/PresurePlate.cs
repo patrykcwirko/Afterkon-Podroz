@@ -9,6 +9,8 @@ public class PresurePlate : MonoBehaviour, IKey
     public int tickPress = 5;
     public float movePerFrame = 0.04f;
 
+    public UnityEngine.Events.UnityEvent onPress;
+
     private const float MAX_MOVE = 0.1f;
     private Vector3 _startPosition;
     private bool isPress = false;
@@ -44,9 +46,10 @@ public class PresurePlate : MonoBehaviour, IKey
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
-        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Interactive")
+        if ( other.gameObject.tag == "Player" || other.gameObject.tag == "Interactive" )
         {
             if (other.gameObject.tag == "Interactive") interactIn = true;
+            onPress?.Invoke();
             isPress = true;
             moveUp = true;
             moveDown = false;
